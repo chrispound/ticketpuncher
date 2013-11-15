@@ -9,7 +9,7 @@ allprojects {
     
     version = "1.0"
     ext.appName = "mygame"
-    ext.gdxVersion = "0.9.9-SNAPSHOT"
+    ext.gdxVersion = "1.0-SNAPSHOT"
     
     repositories {
         mavenCentral()
@@ -52,4 +52,8 @@ project(":android") {
 
 tasks.eclipse.doLast {
 	delete ".project"
+}
+
+task wrapper(type: Wrapper) {
+gradleVersion ='1.8'
 }
