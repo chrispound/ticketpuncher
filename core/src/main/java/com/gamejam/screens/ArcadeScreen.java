@@ -3,6 +3,7 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,9 +32,11 @@ public abstract class ArcadeScreen implements Screen {
     private Skin skin;
     private TextureAtlas atlas;
     private Table table;
+    protected final Stage stage;
 
     protected ArcadeScreen(GameJam game) {
         this.game = game;
+        this.stage = new Stage( 400, 800, true );
     }
 
     /**
@@ -55,8 +58,19 @@ public abstract class ArcadeScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
-        draw(delta);
+        // (1) process the game logic
+
+        // update the actors
+        stage.act( delta );
+
+        // (2) draw the result
+
+        // clear the screen with the given RGB color (black)
+        Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
+
+        // draw the actors
+        stage.draw();
     }
 
     @Override
@@ -83,6 +97,8 @@ public abstract class ArcadeScreen implements Screen {
     @Override
     public void show() {
         Gdx.app.log(GameJam.TAG, "Showing screen: " + getName());
+        //stage is our input processor
+        Gdx.input.setInputProcessor( stage );
     }
 
     protected abstract String getName();
