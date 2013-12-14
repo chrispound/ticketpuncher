@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 import com.gamejam.actors.Bob
 import com.gamejam.controllers.BobController
 import com.gamejam.game.GameJam
@@ -38,9 +39,10 @@ class GameScreen implements Screen, InputProcessor {
     private World world;
 
     GameScreen(GameJam game) {
+        world = new World();
         this.batch = new SpriteBatch();
         this.game = game
-        controller = new BobController();
+        controller = new BobController(world);
         bobTheAlmighty = world.bobTheAlmighty;
 
     }
@@ -52,12 +54,14 @@ class GameScreen implements Screen, InputProcessor {
         def startingLineY = 672 - 32
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+        controller.update(delta)
         spriteBatch.begin()
         spriteBatch.draw(deskTexture, 112, 800 - 64 - 32)
         drawBob()
         (0..4).each { lineNumber ->
             def tempLineY = startingLineY
             (1..11).each {
+                println(startLineX + (lineNumber * separationPixels))
                 spriteBatch.draw(lineTexture, startLineX + (lineNumber * separationPixels), tempLineY)
                 tempLineY -= 64
             }
@@ -73,10 +77,11 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void show() {
-        controller = new BobController(bobTheAlmighty);
+        controller = new BobController(world);
         Gdx.input.setInputProcessor(this);
         println("I'm showing!")
     }
+
 
     @Override
     void hide() {
@@ -99,9 +104,28 @@ class GameScreen implements Screen, InputProcessor {
     }
 
     private void drawBob() {
+        Vector2 bobsPosition = new Vector2();
+        int posY = 200;
         Texture bobImgLocation = new Texture("bob.png");
         TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128);
-        spriteBatch.draw(bobsArea, 128, 128, 128, 128);
+        switch (bobTheAlmighty.getCurrentRow()) {
+            case 1:
+                bobsPosition.set(112, 640)
+                break;
+            case 2:
+                bobsPosition.set(296, 640)
+                break;
+            case 3:
+                bobsPosition.set(480, 640)
+                break;
+            case 4:
+                bobsPosition.set(664, 640)
+                break;
+            case 5:
+                bobsPosition.set(848, 640)
+                break;
+        }
+        spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128);
     }
 
 

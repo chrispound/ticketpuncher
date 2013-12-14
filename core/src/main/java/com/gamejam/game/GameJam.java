@@ -37,7 +37,7 @@ public class GameJam extends Game implements ApplicationListener {
     @Override
     public void render() {
         super.render();
-        fpsLogger.log();
+        //fpsLogger.log();
     }
 
     @Override

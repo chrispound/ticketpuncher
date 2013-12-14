@@ -15,6 +15,8 @@ public class BobController {
     private static Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
     private Bob bobTheAlmighty;
     private World world;
+    private static final int END_OF_LEFT = 1;
+    private static final int END_OF_RIGHT = 5;
 
 
     public BobController(World world) {
@@ -43,6 +45,10 @@ public class BobController {
     //z
     //x
 
+    public void update(float delta) {
+        processInputMapDeterminePosition();
+    }
+
 
     //ARCADE BUTTONS
     //1 //2 player start and join
@@ -65,7 +71,17 @@ public class BobController {
         input.put(Keys.LEFT, false);
     }
 
-    public void processInputMapDetermineState() {
+    public void processInputMapDeterminePosition() {
+        boolean left = input.get(Keys.LEFT);
+        boolean right = input.get(Keys.RIGHT);
+        int currentRow = bobTheAlmighty.getCurrentRow();
+        if (left && currentRow != END_OF_LEFT) {
+
+            bobTheAlmighty.setCurrentRow(--currentRow);
+
+        } else if (right && currentRow != END_OF_RIGHT) {
+            bobTheAlmighty.setCurrentRow(++currentRow);
+        }
 
 
     }

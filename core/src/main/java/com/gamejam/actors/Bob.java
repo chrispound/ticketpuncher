@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Bob {
 
-    enum State{
+    enum State {
         MOVING,
         PUNCHING_TICKET,
         IDLE;
@@ -17,23 +17,33 @@ public class Bob {
 
     }
 
-    Vector2 position = new Vector2();
     Vector2 acceleration = new Vector2();
     Vector2 velocity = new Vector2();
     Rectangle bounds = new Rectangle();
-    State state = State.IDLE;
+    int currentRow = 3;
     boolean facingLeft = true;
     float stateTime = 0;
 
-    public Bob(Vector2 position){
-        this.position = position;
+    public Bob(Vector2 position) {
         this.bounds.x = position.x;
         this.bounds.y = position.y;
+
+    }
+
+    public Bob() {
 
     }
 
     public void update(float delta) {
         stateTime += delta;
 //        position.add(velocity.cpy().scl(delta));
+    }
+
+    public void setCurrentRow(int currentRow) {
+        this.currentRow = currentRow;
+    }
+
+    public int getCurrentRow() {
+        return this.currentRow;
     }
 }
