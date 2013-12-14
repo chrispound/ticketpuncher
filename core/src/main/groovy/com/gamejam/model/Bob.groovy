@@ -25,19 +25,19 @@ class Bob {
 
     private void updatePosition() {
         switch (currentLine) {
-            case 1:
+            case 0:
                 position.set(LinePosHelper.LINE_0.getLinePosition(0).x, (LinePosHelper.LINE_0.getLinePosition(0).y + 84).toFloat());
                 break;
-            case 2:
+            case 1:
                 position.set(LinePosHelper.LINE_1.getLinePosition(0).x, (LinePosHelper.LINE_1.getLinePosition(0).y + 84).toFloat());
                 break;
-            case 3:
+            case 2:
                 position.set(LinePosHelper.LINE_2.getLinePosition(0).x, (LinePosHelper.LINE_2.getLinePosition(0).y + 84).toFloat());
                 break;
-            case 4:
+            case 3:
                 position.set(LinePosHelper.LINE_3.getLinePosition(0).x, (LinePosHelper.LINE_3.getLinePosition(0).y + 84).toFloat());
                 break;
-            case 5:
+            case 4:
                 position.set(LinePosHelper.LINE_4.getLinePosition(0).x, (LinePosHelper.LINE_4.getLinePosition(0).y + 84).toFloat());
                 break;
         }

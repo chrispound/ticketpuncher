@@ -24,7 +24,7 @@ class TerminalRenderer {
 
     TerminalRenderer(Terminal terminal) {
         this.terminal = terminal
-        bob = terminal.bobTheAlmightyPuncherOfAllThings
+        bob = terminal.bob
         batch = new SpriteBatch()
         loadTextures()
     }

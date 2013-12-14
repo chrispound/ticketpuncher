@@ -28,6 +28,7 @@ class GameScreen implements Screen, InputProcessor {
     TerminalController terminalController
     TerminalRenderer terminalRenderer
     Terminal terminal
+    def movementLocked = false
 
     GameScreen(GameJam game) {
         this.game = game
@@ -86,8 +87,6 @@ class GameScreen implements Screen, InputProcessor {
          */
         terminalRenderer.render()
 
-
-
 //        spriteBatch.begin()
 //        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
 //        drawBob()
@@ -118,13 +117,14 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     boolean keyDown(int keycode) {
+        println("Unlocked Movement")
         println("USER PRESSED: " + keycode)
         switch (keycode) {
             case Input.Keys.LEFT:
-                terminalController.movingLeft()
+                terminalController.moveBobLeft()
                 break;
             case Input.Keys.RIGHT:
-                terminalController.movingRight()
+                terminalController.moveBobRight()
                 break;
             default:
                 terminalController.bobIsPunchingATicket(keycode)
@@ -136,14 +136,7 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     boolean keyUp(int keycode) {
-        terminalController.setBobAbleToMove(true)
-        terminalController.setMapUpdatable(true)
-        if (keycode == Input.Keys.LEFT) {
-            terminalController.stopMovingLeft()
-        } else if (keycode == Input.Keys.RIGHT) {
-            terminalController.stopMovingRight()
-        }
-
+        terminalController.stopMovingBob()
         return true
     }
 

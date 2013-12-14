@@ -8,11 +8,11 @@ package com.gamejam.model
  */
 class Terminal {
     Map<String, List<Line>> linesMap
-    Bob bobTheAlmightyPuncherOfAllThings
+    Bob bob
 
     Terminal() {
-        linesMap = [open : [new Line(1), new Line(2), new Line(3), new Line(4), new Line(5)], closed : []]
-        bobTheAlmightyPuncherOfAllThings = new Bob(3)
+        linesMap = [open : [new Line(0), new Line(1), new Line(2), new Line(3), new Line(4)], closed : []]
+        bob = new Bob(2)
     }
 
     def addPerson(Passenger passenger) {
