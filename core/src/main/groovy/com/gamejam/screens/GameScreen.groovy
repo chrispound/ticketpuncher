@@ -38,6 +38,7 @@ class GameScreen implements Screen, InputProcessor {
     private Bob bobTheAlmighty;
     private World world;
 
+
     GameScreen(GameJam game) {
         world = new World();
         this.batch = new SpriteBatch();

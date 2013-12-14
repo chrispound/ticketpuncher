@@ -11,7 +11,7 @@ public class DesktopLauncher {
                   //title is class name
         //Desk is 800 wide 64 height
         //Bob is 64x64
-        //customers/lines 64x64
+        //customers/linesMap 64x64
         config.width = 1024;
         config.height = 800;
         config.resizable = false;
