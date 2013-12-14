@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.gamejam.example.GameJam;
+import com.gamejam.game.GameJam;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,7 +36,6 @@ public abstract class ArcadeScreen implements Screen {
 
     protected ArcadeScreen(GameJam game) {
         this.game = game;
-        this.stage = new Stage( 400, 800, true );
     }
 
     /**
