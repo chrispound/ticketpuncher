@@ -47,7 +47,7 @@ public class SplashScreen extends ArcadeScreen {
         super.show();
 
         // load the splash image and create the texture region
-        splashImageActor = new Image(new Texture("GameJamSplashScreen.png"));
+        splashImageActor = new Image(new Texture("gjlogoTitle.png"));
 
         // we set the linear texture filter to improve the stretching
         splashImageActor.setFillParent(true);
