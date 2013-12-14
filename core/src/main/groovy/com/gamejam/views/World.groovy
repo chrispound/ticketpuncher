@@ -8,4 +8,8 @@ import com.gamejam.actors.Bob
 class World {
 
     Bob bobTheAlmighty;
+
+    public World() {
+        bobTheAlmighty = new Bob();
+    }
 }
