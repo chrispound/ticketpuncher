@@ -16,8 +16,9 @@ enum LinePosHelper {
     }
     int lineNumber
 
-    def getLinePosition(int linePosition) {
-        return new Vector2((PosHelper.gameStageStartX + (lineNumber * (PosHelper.lineSeparation + PosHelper.lineHeightWidth))).toFloat(),
-                (PosHelper.lineStartY - (linePosition * 64)).toFloat())
+    Vector2 getLinePosition(int linePosition) {
+        return new Vector2(
+                (PosHelper.gameStageStartX + (lineNumber * (PosHelper.lineSeparation + PosHelper.lineHeightWidth))).toFloat(),
+                (PosHelper.lineStartY - (linePosition * PosHelper.lineHeightWidth)).toFloat())
     }
 }

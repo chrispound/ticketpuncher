@@ -1,25 +1,13 @@
 package com.gamejam.screens
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
-import com.badlogic.gdx.graphics.GL10
-import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.Vector2
-import com.gamejam.actors.Bob
-import com.gamejam.actors.BobsFriend
-import com.gamejam.controllers.BobController
-import com.gamejam.controllers.BobsFriendController
-import com.gamejam.controllers.ComboAnimatorController
+import com.gamejam.controller.TerminalController
 import com.gamejam.game.GameJam
-import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Terminal
+import com.gamejam.view.TerminalRenderer
 
-import static com.gamejam.model.PosHelper.*
 
 /**
  * Created by 
@@ -35,68 +23,135 @@ class GameScreen implements Screen, InputProcessor {
     //Lines are 704(11)x64
 
     final GameJam game
-    SpriteBatch batch
-    BobController controller
-    BobsFriendController bobsFriendController
-    int width
-    int height
-    SpriteBatch spriteBatch = new SpriteBatch()
-    Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
-    Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
-    Texture bobTextue = new Texture(Gdx.files.internal("bob.png"))
-    Texture bobFriendImgLocation = new Texture("BobFriendStill.png")
-    Bob bobTheAlmighty
-    BobsFriend bobsFriend
+    TerminalController terminalController
+    TerminalRenderer terminalRenderer
     Terminal terminal
-    OrthographicCamera camera
-    ComboAnimatorController comboAnimatorController
-
 
     GameScreen(GameJam game) {
-        terminal = new Terminal()
-        this.batch = new SpriteBatch()
         this.game = game
-
-        controller = new BobController(terminal)
-        bobTheAlmighty = terminal.bobTheAlmightyPuncherOfAllThings
-        comboAnimatorController = new ComboAnimatorController(terminal, this)
-        bobsFriendController = new BobsFriendController(terminal)
-        bobsFriend = terminal.bobsFriend
-        this.camera = new OrthographicCamera()
-        this.camera.setToOrtho(false, screenWidth, screenHeight)
-
+        terminal = new Terminal()
+        terminalController = new TerminalController(terminal)
+        terminalRenderer = new TerminalRenderer(terminal)
     }
+
+//    @Override
+//    void render(float delta) {
+//        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
+//        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+//        camera.update()
+//        spriteBatch.setProjectionMatrix(camera.combined)
+//        spriteBatch.begin()
+//        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
+//        drawBob()
+//
+//        LinePosHelper.each { line ->
+//            (0..9).each { linePos ->
+//                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
+//                drawBobsFriend(line.getLinePosition(linePos))
+//            }
+//        }
+//        comboAnimatorController.drawCombo(batch)
+//        spriteBatch.end()
+//    }
+
+
+    @Override
+    void show() {
+        Gdx.input.setInputProcessor(this)
+    }
+
 
     @Override
     void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
-        camera.update()
-        spriteBatch.setProjectionMatrix(camera.combined)
-        spriteBatch.begin()
-        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
-        drawBob()
 
-        LinePosHelper.each { line ->
-            (0..9).each { linePos ->
-                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
-                drawBobsFriend(line.getLinePosition(linePos))
+        /**
+         * TerminalController.update will be responsbile for the following
+         * - Add A Person to the Lines
+         * - Update Bob's Position
+         * - Update Line's Positions
+         * - ???x
+         */
+        terminalController.update()
+        /**
+         * TerminalRenderer.render will be responsible for the following
+         * - Draw Bob
+         * - Draw BobFriends
+         * - Draw Score Points after a ticket punch?
+         * - Draw Combo's?
+         * -
+         */
+        terminalRenderer.render()
+
+
+
+//        spriteBatch.begin()
+//        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
+//        drawBob()
+//
+//        LinePosHelper.each { line ->
+//            (0..9).each { linePos ->
+//                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
+//                drawBobsFriend(line.getLinePosition(linePos))
+//            }
+//        }
+//        spriteBatch.end()
+    }
+
+//    private void drawBobsFriend(Vector2 position) {
+//        Vector2 bobsFriendPosition = new Vector2()
+//        int posY = 0
+//        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 64, 64)
+//        switch (bobsFriend.getCurrentRow()) {
+//            case 0:
+//                bobsFriendPosition.set(112, 0)
+//                break
+//            case 1:
+//                bobsFriendPosition.set(112, 1)
+//
+//        }
+//        spriteBatch.draw(bobsArea, position.x, position.y)
+//    }
+
+    @Override
+    boolean keyDown(int keycode) {
+        println("USER PRESSED: " + keycode)
+        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT) {
+
+            if (keycode == Input.Keys.LEFT) {
+                terminalController.movingLeft()
+                println("user moving left")
+            } else if (keycode == Input.Keys.RIGHT) {
+                terminalController.movingRight()
+                println("user moving right")
             }
+//            terminalController.processInputMapDeterminePosition()
+        } else {
+            println("Bob Is Punching a Ticket")
+            terminalController.bobIsPunchingATicket(keycode)
+            terminalController.checkIfComboIsCorrect()
         }
-        comboAnimatorController.drawCombo(batch)
-        spriteBatch.end()
+
+        return true;
+    }
+
+    @Override
+    boolean keyUp(int keycode) {
+        terminalController.setBobAbleToMove(true)
+        terminalController.setMapUpdatable(true)
+        if (keycode == Input.Keys.LEFT) {
+            terminalController.stopMovingLeft()
+        } else if (keycode == Input.Keys.RIGHT) {
+            terminalController.stopMovingRight()
+        }
+
+        return true
     }
 
 
     @Override
     void resize(int width, int height) {
-        this.width = width
-        this.height = height
-    }
-
-    @Override
-    void show() {
-        Gdx.input.setInputProcessor(this)
     }
 
 
@@ -117,82 +172,7 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void dispose() {
-        super.dispose()
-    }
 
-    private void drawBob() {
-        Vector2 bobsPosition = new Vector2()
-        int posY = 200
-        TextureRegion bobsArea = new TextureRegion(bobTextue, 128, 128)
-        switch (bobTheAlmighty.getCurrentLine()) {
-            case 1:
-                bobsPosition.set(112, 640)
-                break
-            case 2:
-                bobsPosition.set(296, 640)
-                break
-            case 3:
-                bobsPosition.set(480, 640)
-                break
-            case 4:
-                bobsPosition.set(664, 640)
-                break
-            case 5:
-                bobsPosition.set(848, 640)
-                break
-        }
-        spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128)
-    }
-
-    private void drawBobsFriend(Vector2 position) {
-        Vector2 bobsFriendPosition = new Vector2()
-        int posY = 0
-        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 64, 64)
-        switch (bobsFriend.getCurrentRow()) {
-            case 0:
-                bobsFriendPosition.set(112, 0)
-                break
-            case 1:
-                bobsFriendPosition.set(112, 1)
-
-        }
-        spriteBatch.draw(bobsArea, position.x, position.y)
-    }
-
-    @Override
-    boolean keyDown(int keycode) {
-        println("USER PRESSED: " + keycode)
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT) {
-
-            if (keycode == Input.Keys.LEFT) {
-                controller.movingLeft()
-                println("user moving left")
-            } else if (keycode == Input.Keys.RIGHT) {
-                controller.movingRight()
-                println("user moving right")
-            }
-            controller.processInputMapDeterminePosition()
-        } else {
-            println("Bob Is Punching a Ticket")
-            controller.bobIsPunchingATicket(keycode)
-            controller.checkIfComboIsCorrect()
-        }
-
-        return true;
-    }
-
-
-    @Override
-    boolean keyUp(int keycode) {
-        controller.setBobAbleToMove(true)
-        controller.setMapUpdateable(true)
-        if (keycode == Input.Keys.LEFT) {
-            controller.stopMovingLeft()
-        } else if (keycode == Input.Keys.RIGHT) {
-            controller.stopMovingRight()
-        }
-
-        return true
     }
 
     /*

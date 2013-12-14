@@ -17,9 +17,9 @@ class PosHelper {
     static float gameStageStartY = 800
     static float gameStageEndY = 76
     static float lineSeparation = 120
-    static float lineStartY = gameStageStartY - deskHeight - lineHeightWidth
+    static float lineStartY = gameStageStartY - bobWidthHeight - deskHeight - lineHeightWidth
     static float passengerWidthHeight = 64
-    static float deskHeight = 64
+    static float deskHeight = 20
     static float bobWidthHeight = 64
     static float lineHeightWidth = 64
 

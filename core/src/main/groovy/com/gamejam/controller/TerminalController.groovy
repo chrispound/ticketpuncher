@@ -1,78 +1,38 @@
-package com.gamejam.controllers;
+package com.gamejam.controller
 
-import com.gamejam.actors.Bob;
-import com.gamejam.model.Terminal;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import com.badlogic.gdx.Input
+import com.gamejam.model.Bob
+import com.gamejam.model.Terminal
 
 /**
- * Created by Chris on 12/13/13.
- * Controll manager and listener for the main player Bob
+ * Created by 
+ * Matthew Fitzpatrick 
+ * on 14-Dec-2013
+ * at 3:01 PM
  */
-public class BobController {
-
+class TerminalController {
     private static final int END_OF_LEFT = 1;
     private static final int END_OF_RIGHT = 5;
     private Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
     private Bob bobTheAlmighty;
     private Terminal terminal;
     private boolean bobAbleToMove = true;
-    private boolean mapUpdateable = true;
+    private boolean mapUpdatable = true;
     private ArrayList<Integer> bobCombo = new ArrayList<Integer>();
+    private ArrayList<Integer> passengerCombo;
 
 
-    public BobController(Terminal terminal) {
+    TerminalController(Terminal terminal) {
 
         this.terminal = terminal;
         this.bobTheAlmighty = terminal.getBobTheAlmightyPuncherOfAllThings();
     }
 
-    public void setMapUpdateable(boolean p) {
-        this.mapUpdateable = p;
+    public void setMapUpdatable(boolean p) {
+        this.mapUpdatable = p;
     }
 
-
-    //arrows handle user direction
-
-    //USER BUTTONS
-
-    //x
-    //z
-    //l-shift
-    //space
-    //enter
-    //l-ctrl
-    //esc = escape exit
-    //ARCADE BUTTONS
-    //1 //2 player start and join
-    //5 //6 player coin buttons
-    public void movingLeft() {
-        if (mapUpdateable) {
-            input.put(Keys.LEFT, true);
-            stopMovingRight();
-            mapUpdateable = false;
-        }
-    }
-
-    public void movingRight() {
-        if (mapUpdateable) {
-            mapUpdateable = false;
-            input.put(Keys.RIGHT, true);
-            stopMovingLeft();
-        }
-    }
-
-    public void stopMovingRight() {
-        input.put(Keys.RIGHT, false);
-    }
-
-    public void stopMovingLeft() {
-        input.put(Keys.LEFT, false);
-    }
-
-    public void processInputMapDeterminePosition() {
+    def update() {
         boolean left = false;
         boolean right = false;
         if (isBobAbleToMove()) {
@@ -95,9 +55,47 @@ public class BobController {
         }
     }
 
+    //arrows handle user direction
+
+    //USER BUTTONS
+
+    //x
+    //z
+    //l-shift
+    //space
+    //enter
+    //l-ctrl
+    //esc = escape exit
+    //ARCADE BUTTONS
+    //1 //2 player start and join
+    //5 //6 player coin buttons
+    public void movingLeft() {
+        if (mapUpdatable) {
+            input.put(Keys.LEFT, true);
+            stopMovingRight();
+            mapUpdatable = false;
+        }
+    }
+
+    public void movingRight() {
+        if (mapUpdatable) {
+            mapUpdatable = false;
+            input.put(Keys.RIGHT, true);
+            stopMovingLeft();
+        }
+    }
+
+    public void stopMovingRight() {
+        input.put(Keys.RIGHT, false);
+    }
+
+    public void stopMovingLeft() {
+        input.put(Keys.LEFT, false);
+    }
+
     public void checkIfComboIsCorrect() {
         //check passenger ticket
-        ArrayList<Integer> passengerCombo = terminal.passenger.getPassengerCombo();
+        ArrayList<Integer> passengerCombo = getPassengerCombo();
         for (int f = 0; f < bobCombo.size(); f++) {
             if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                 bobCombo = new ArrayList<Integer>();
@@ -131,5 +129,5 @@ public class BobController {
     enum Keys {
         LEFT, RIGHT
     }
-}
 
+}
