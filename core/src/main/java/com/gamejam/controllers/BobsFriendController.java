@@ -1,7 +1,7 @@
 package com.gamejam.controllers;
 
 import com.gamejam.actors.BobsFriend;
-import com.gamejam.views.Terminal;
+import com.gamejam.model.Terminal;
 
 
 /**

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL10
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -15,8 +16,8 @@ import com.gamejam.controllers.BobController
 import com.gamejam.controllers.BobsFriendController
 import com.gamejam.game.GameJam
 import com.gamejam.model.LinePosHelper
-import com.gamejam.views.Terminal
-import com.gamejam.model.PositionHelper
+import com.gamejam.model.Terminal
+import static com.gamejam.model.PosHelper.*
 
 /**
  * Created by 
@@ -25,11 +26,6 @@ import com.gamejam.model.PositionHelper
  * at 8:47 PM
  */
 class GameScreen implements Screen, InputProcessor {
-
-    //Desk is 800x64
-    //Bob is 64x64
-    //Customers are 64x64
-    //Lines are 704(11)x64
 
     final GameJam game
     SpriteBatch batch
@@ -43,6 +39,7 @@ class GameScreen implements Screen, InputProcessor {
     Bob bobTheAlmighty
     BobsFriend bobsFriend
     Terminal terminal
+    OrthographicCamera camera
 
 
     GameScreen(GameJam game) {
@@ -55,6 +52,8 @@ class GameScreen implements Screen, InputProcessor {
 
         bobsFriendController = new BobsFriendController(terminal)
         bobsFriend = terminal.bobsFriend
+        this.camera = new OrthographicCamera()
+        this.camera.setToOrtho(false, screenWidth, screenHeight)
 
     }
 
@@ -62,8 +61,10 @@ class GameScreen implements Screen, InputProcessor {
     void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+        camera.update()
+        spriteBatch.setProjectionMatrix(camera.combined)
         spriteBatch.begin()
-        spriteBatch.draw(deskTexture, PositionHelper.gameStageStartX.toFloat(), (PositionHelper.gameStageStartY - PositionHelper.deskHeight).toFloat())
+        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
         drawBob()
 
         LinePosHelper.each { line ->
@@ -105,7 +106,7 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void dispose() {
-
+        
     }
 
     private void drawBob() {

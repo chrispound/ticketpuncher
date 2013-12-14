@@ -2,7 +2,7 @@ package com.gamejam.controllers;
 
 import com.badlogic.gdx.Input;
 import com.gamejam.actors.Bob;
-import com.gamejam.views.Terminal;
+import com.gamejam.model.Terminal;
 
 import java.util.ArrayList;
 import java.util.HashMap;

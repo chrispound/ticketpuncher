@@ -1,4 +1,4 @@
-package com.gamejam.views
+package com.gamejam.model
 
 import com.gamejam.actors.Bob
 import com.gamejam.actors.BobsFriend
