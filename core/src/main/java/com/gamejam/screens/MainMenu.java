@@ -57,18 +57,19 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         // label "welcome"
-        Label title = new Label("Ticket Puncher", getSkin());
+        /*Label title = new Label("Ticket Puncher", getSkin());
         title.setPosition(325, 500);
         title.setFontScale(3);
         title.setColor(Color.WHITE);
-        stage.addActor(title);
+        stage.addActor(title);*/
 
-        gameLogo = new Image(new Texture("gameLogo.jpg"));
+        gameLogo = new Image(new Texture("gameLogo.png"));
+        gameLogo.setPosition(250, 200);
         stage.addActor(gameLogo);
 
         Label pressToContinue = new Label("Press Player 1 Start To Continue", getSkin());
         pressToContinue.setFontScale(1.5f);
-        pressToContinue.setPosition(325, 400);
+        pressToContinue.setPosition(325, 150);
         stage.addActor(pressToContinue);
 
         // button "start game"
