@@ -12,11 +12,13 @@ import java.util.Map;
  */
 public class BobController {
 
-    private static Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
-    private Bob bobTheAlmighty;
-    private World world;
     private static final int END_OF_LEFT = 1;
     private static final int END_OF_RIGHT = 5;
+    private Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
+    private Bob bobTheAlmighty;
+    private World world;
+    private boolean bobAbleToMove = true;
+    private boolean mapUpdatable = true;
 
 
     public BobController(World world) {
@@ -25,42 +27,39 @@ public class BobController {
         this.bobTheAlmighty = world.getBobTheAlmighty();
     }
 
-    enum Keys {
-        LEFT, RIGHT
+    public void setMapUpdatable(boolean p) {
+        this.mapUpdatable = p;
     }
 
-    static {
-        input.put(Keys.LEFT, false);
-        input.put(Keys.RIGHT, false);
-    }
-    //esc = escape exit
 
     //arrows handle user direction
 
     //USER BUTTONS
-    //l-ctrl
-    //enter
-    //space
-    //l-shift
-    //z
+
     //x
-
-    public void update(float delta) {
-        processInputMapDeterminePosition();
-    }
-
-
+    //z
+    //l-shift
+    //space
+    //enter
+    //l-ctrl
+    //esc = escape exit
     //ARCADE BUTTONS
     //1 //2 player start and join
     //5 //6 player coin buttons
     public void movingLeft() {
-        input.put(Keys.LEFT, true);
-        input.put(Keys.RIGHT, false);
+        if (mapUpdatable) {
+            input.put(Keys.LEFT, true);
+            stopMovingRight();
+            mapUpdatable = false;
+        }
     }
 
     public void movingRight() {
-        input.put(Keys.RIGHT, true);
-        input.put(Keys.LEFT, false);
+        if (mapUpdatable) {
+            mapUpdatable = false;
+            input.put(Keys.RIGHT, true);
+            stopMovingLeft();
+        }
     }
 
     public void stopMovingRight() {
@@ -72,17 +71,38 @@ public class BobController {
     }
 
     public void processInputMapDeterminePosition() {
-        boolean left = input.get(Keys.LEFT);
-        boolean right = input.get(Keys.RIGHT);
-        int currentRow = bobTheAlmighty.getCurrentRow();
-        if (left && currentRow != END_OF_LEFT) {
+        boolean left = false;
+        boolean right = false;
+        if (isBobAbleToMove()) {
+            bobAbleToMove = false;
+            if (input.get(Keys.LEFT) != null) {
+                left = input.get(Keys.LEFT);
+            }
+            if (input.get(Keys.RIGHT) != null) {
+                right = input.get(Keys.RIGHT);
+            }
+            int currentRow = bobTheAlmighty.getCurrentRow();
+            if (left && currentRow != END_OF_LEFT) {
 
-            bobTheAlmighty.setCurrentRow(--currentRow);
+                bobTheAlmighty.setCurrentRow(--currentRow);
 
-        } else if (right && currentRow != END_OF_RIGHT) {
-            bobTheAlmighty.setCurrentRow(++currentRow);
+            } else if (right && currentRow != END_OF_RIGHT) {
+                bobTheAlmighty.setCurrentRow(++currentRow);
+            }
+
         }
+    }
 
+    public boolean isBobAbleToMove() {
+        return bobAbleToMove;
+    }
 
+    public void setBobAbleToMove(Boolean bobAbleToMove) {
+        this.bobAbleToMove = bobAbleToMove;
+    }
+
+    enum Keys {
+        LEFT, RIGHT
     }
 }
+

@@ -54,14 +54,12 @@ class GameScreen implements Screen, InputProcessor {
         def startingLineY = 672 - 32
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
-        controller.update(delta)
         spriteBatch.begin()
         spriteBatch.draw(deskTexture, 112, 800 - 64 - 32)
         drawBob()
         (0..4).each { lineNumber ->
             def tempLineY = startingLineY
             (1..11).each {
-                println(startLineX + (lineNumber * separationPixels))
                 spriteBatch.draw(lineTexture, startLineX + (lineNumber * separationPixels), tempLineY)
                 tempLineY -= 64
             }
@@ -77,8 +75,8 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void show() {
-        controller = new BobController(world);
-        Gdx.input.setInputProcessor(this);
+        controller = new BobController(world)
+        Gdx.input.setInputProcessor(this)
         println("I'm showing!")
     }
 
@@ -104,10 +102,10 @@ class GameScreen implements Screen, InputProcessor {
     }
 
     private void drawBob() {
-        Vector2 bobsPosition = new Vector2();
-        int posY = 200;
+        Vector2 bobsPosition = new Vector2()
+        int posY = 200
         Texture bobImgLocation = new Texture("bob.png");
-        TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128);
+        TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128)
         switch (bobTheAlmighty.getCurrentRow()) {
             case 1:
                 bobsPosition.set(112, 640)
@@ -125,13 +123,13 @@ class GameScreen implements Screen, InputProcessor {
                 bobsPosition.set(848, 640)
                 break;
         }
-        spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128);
+        spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128)
     }
 
 
     @Override
     boolean keyDown(int keycode) {
-        println("USER PRESSED: " + keycode);
+        println("USER PRESSED: " + keycode)
         if (keycode == Input.Keys.LEFT) {
             controller.movingLeft();
             println("user moving left");
@@ -139,12 +137,14 @@ class GameScreen implements Screen, InputProcessor {
             controller.movingRight();
             println("user moving right");
         }
-
+        controller.processInputMapDeterminePosition()
         return true;
     }
 
     @Override
     boolean keyUp(int keycode) {
+        controller.setBobAbleToMove(true)
+        controller.setMapUpdatable(true)
         if (keycode == Input.Keys.LEFT) {
             controller.stopMovingLeft()
         } else if (keycode == Input.Keys.RIGHT) {
