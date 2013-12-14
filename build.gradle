@@ -1,33 +1,49 @@
-buildscript {
-    repositories { mavenCentral() }
-    dependencies { classpath 'com.android.tools.build:gradle:0.5.+' }
-}
+apply plugin: "idea"
+apply plugin: "groovy"
+apply plugin: "java"
 
-allprojects {
-    apply plugin: "eclipse"
+
+version = "1.0"
+ext.appName = "TicketPuncher"
+ext.gdxVersion = "1.0-SNAPSHOT"
+
+subprojects {
     apply plugin: "idea"
-    
-    version = "1.0"
-    ext.appName = "mygame"
-    ext.gdxVersion = "1.0-SNAPSHOT"
-    
+    apply plugin: "groovy"
+    apply plugin: "java"
+
+    sourceCompatibility = 1.7
+
     repositories {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         mavenLocal();
     }
+
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.2.1'
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = []
+            }
+
+            groovy {
+                srcDirs = ['src/main/java', 'src/main/groovy']
+            }
+        }
+    }
 }
 
 project(":core") {
-    apply plugin: "java"
-    
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
     }
 }
 
 project(":desktop") {
-    apply plugin: "java"
     apply plugin: "application"
     
     dependencies {
@@ -35,12 +51,8 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
-}
 
-tasks.eclipse.doLast {
-	delete ".project"
-}
+    mainClassName = "com.badlogic.gradletest.DesktopLauncher"
+    sourceSets.main.resources.srcDirs = [file("./assets").getAbsolutePath()]
 
-task wrapper(type: Wrapper) {
-gradleVersion ='1.8'
 }

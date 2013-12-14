@@ -3,7 +3,7 @@ package com.badlogic.gradletest;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.gamejam.example.GameJam;
+import com.gamejam.game.GameJam;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
