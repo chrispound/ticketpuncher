@@ -1,4 +1,4 @@
-package com.gamejam.controllers
+package com.gamejam.controller
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input

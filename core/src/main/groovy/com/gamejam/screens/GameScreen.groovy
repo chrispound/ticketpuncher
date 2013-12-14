@@ -119,22 +119,18 @@ class GameScreen implements Screen, InputProcessor {
     @Override
     boolean keyDown(int keycode) {
         println("USER PRESSED: " + keycode)
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT) {
-
-            if (keycode == Input.Keys.LEFT) {
+        switch (keycode) {
+            case Input.Keys.LEFT:
                 terminalController.movingLeft()
-                println("user moving left")
-            } else if (keycode == Input.Keys.RIGHT) {
+                break;
+            case Input.Keys.RIGHT:
                 terminalController.movingRight()
-                println("user moving right")
-            }
-//            terminalController.processInputMapDeterminePosition()
-        } else {
-            println("Bob Is Punching a Ticket")
-            terminalController.bobIsPunchingATicket(keycode)
-            terminalController.checkIfComboIsCorrect()
+                break;
+            default:
+                terminalController.bobIsPunchingATicket(keycode)
+                terminalController.checkIfComboIsCorrect()
+                break;
         }
-
         return true;
     }
 
