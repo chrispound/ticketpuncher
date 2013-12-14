@@ -28,6 +28,7 @@ public class GameJam extends Game implements ApplicationListener {
 
     @Override
     public void create() {
+        Texture.setEnforcePotImages(false);
         fpsLogger = new FPSLogger();
         Gdx.app.log(TAG, "Creating Game");
         batch = new SpriteBatch();
