@@ -14,7 +14,9 @@ import com.gamejam.actors.BobsFriend
 import com.gamejam.controllers.BobController
 import com.gamejam.controllers.BobsFriendController
 import com.gamejam.game.GameJam
+import com.gamejam.model.LinePosHelper
 import com.gamejam.views.Terminal
+import com.gamejam.model.PositionHelper
 
 /**
  * Created by 
@@ -58,24 +60,20 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void render(float delta) {
-        def startLineX = 112
-        def separationPixels = 184
-        def startingLineY = 672 - 32
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
         spriteBatch.begin()
-        spriteBatch.draw(deskTexture, 112, 800 - 64 - 32)
+        spriteBatch.draw(deskTexture, PositionHelper.gameStageStartX.toFloat(), (PositionHelper.gameStageStartY - PositionHelper.deskHeight).toFloat())
         drawBob()
         drawBobsFriend()
-        (0..4).each { lineNumber ->
-            def tempLineY = startingLineY
-            (1..11).each {
-                spriteBatch.draw(lineTexture, startLineX + (lineNumber * separationPixels), tempLineY)
-                tempLineY -= 64
+        LinePosHelper.each { line ->
+            (0..9).each { linePos ->
+                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
             }
         }
         spriteBatch.end()
     }
+
 
     @Override
     void resize(int width, int height) {
