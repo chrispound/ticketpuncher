@@ -1,6 +1,9 @@
 package com.gamejam.screens
 
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.gamejam.game.GameJam
 
 /**
@@ -12,14 +15,18 @@ import com.gamejam.game.GameJam
 class GameScreen implements Screen {
 
     final GameJam game
+    private SpriteBatch batch;
 
     GameScreen(GameJam game) {
+        this.batch = new SpriteBatch();
         this.game = game
     }
 
     @Override
     void render(float delta) {
-
+        batch.begin();
+        drawBob();
+        batch.end();
     }
 
     @Override
@@ -49,6 +56,13 @@ class GameScreen implements Screen {
 
     @Override
     void dispose() {
+
+    }
+
+    private void drawBob() {
+        Texture bobImgLocation = new Texture("bob.png");
+        TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128);
+        batch.draw(bobsArea, 128, 128, 128, 128);
 
     }
 }

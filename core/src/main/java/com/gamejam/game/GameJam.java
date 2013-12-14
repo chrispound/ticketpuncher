@@ -5,13 +5,14 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.gamejam.screens.SplashScreen;
 
 
 /**
  * Main Game Runner
- *
  */
 public class GameJam extends Game implements ApplicationListener {
     SpriteBatch batch;
@@ -21,8 +22,8 @@ public class GameJam extends Game implements ApplicationListener {
      */
     private FPSLogger fpsLogger;
 
-    public SplashScreen getSplashScreen(){
-         return new SplashScreen(this);
+    public SplashScreen getSplashScreen() {
+        return new SplashScreen(this);
     }
 
     @Override
@@ -32,6 +33,18 @@ public class GameJam extends Game implements ApplicationListener {
         batch = new SpriteBatch();
         setScreen(getSplashScreen());
     }
+
+    @Override
+    public void render() {
+        super.render();
+        fpsLogger.log();
+        //call world renderer.
+       // drawBob();
+    }
+
+    /**
+     * Hi I draw Bob.
+     */
 
     @Override
     public void resize(int width, int height) {
