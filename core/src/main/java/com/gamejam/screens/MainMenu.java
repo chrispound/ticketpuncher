@@ -17,7 +17,7 @@ import com.gamejam.game.GameJam;
 public class MainMenu extends ArcadeScreen implements InputProcessor {
     /** is done flag **/
     private boolean isDone = false;
-    /** view & transform matrix **/
+    /** com.gamejam.view & transform matrix **/
     private final Matrix4 viewMatrix = new Matrix4();
     private final Matrix4 transformMatrix = new Matrix4();
 

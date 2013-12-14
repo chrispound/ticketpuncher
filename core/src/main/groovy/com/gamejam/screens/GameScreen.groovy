@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
+
+import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -18,9 +20,19 @@ import com.gamejam.game.GameJam
  */
 class GameScreen implements Screen, InputProcessor {
 
+    //Desk is 800x64
+    //Bob is 64x64
+    //Customers are 64x64
+    //Lines are 704(11)x64
+
     final GameJam game
     private SpriteBatch batch;
     private BobController controller;
+    int width;
+    int height;
+    SpriteBatch spriteBatch = new SpriteBatch()
+    Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
+    Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
 
     GameScreen(GameJam game) {
         this.batch = new SpriteBatch();
@@ -29,20 +41,32 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void render(float delta) {
-        batch.begin();
-        drawBob();
-        batch.end();
+        def startLineX = 112
+        def separationPixels = 184
+        def startingLineY = 672-32
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+        spriteBatch.begin()
+        spriteBatch.draw(deskTexture, 112, 800-64-32)
+        drawBob()
+        (0..4).each { lineNumber ->
+            def tempLineY = startingLineY
+            (1..11).each {
+                spriteBatch.draw(lineTexture, startLineX + (lineNumber * separationPixels), tempLineY)
+                tempLineY -= 64
+            }
+        }
+        spriteBatch.end()
     }
 
     @Override
     void resize(int width, int height) {
-
+        this.width = width
+        this.height = height
     }
 
     @Override
     void show() {
-        controller = new BobController();
-        Gdx.input.setInputProcessor(this);
         println("I'm showing!")
     }
 
@@ -69,7 +93,8 @@ class GameScreen implements Screen, InputProcessor {
     private void drawBob() {
         Texture bobImgLocation = new Texture("bob.png");
         TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128);
-        batch.draw(bobsArea, 128, 128, 128, 128);
+        spriteBatch.draw(bobsArea, 128, 128, 128, 128);
+    }
 
     }
 
