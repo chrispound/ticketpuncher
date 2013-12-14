@@ -1,7 +1,6 @@
 package com.gamejam.model
 
 import com.badlogic.gdx.math.Rectangle
-import com.badlogic.gdx.utils.Array
 
 /**
  * Created by 
@@ -11,7 +10,9 @@ import com.badlogic.gdx.utils.Array
  */
 class World {
 
-    List<Line> lines = new ArrayList<Line>()
+    Rectangle desk = new Rectangle(112, 704, 800, 64)
+    Rectangle line1 = new Rectangle(112, 704, 64, 64)
+    Rectangle line2 = new Rectangle()
 
 
 }
