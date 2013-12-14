@@ -1,8 +1,10 @@
 package com.gamejam.controllers;
 
+import com.badlogic.gdx.Input;
 import com.gamejam.actors.Bob;
 import com.gamejam.views.Terminal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,8 @@ public class BobController {
     private Terminal terminal;
     private boolean bobAbleToMove = true;
     private boolean mapUpdatable = true;
+    private ArrayList<Integer> bobCombo = new ArrayList<Integer>();
+    private ArrayList<Integer> passengerCombo;
 
 
     public BobController(Terminal terminal) {
@@ -93,12 +97,44 @@ public class BobController {
         }
     }
 
+    public void checkIfComboIsCorrect() {
+        //check passenger ticket
+        ArrayList<Integer> passengerCombo = getPassengerCombo();
+        for (int f = 0; f < bobCombo.size(); f++) {
+            if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
+                bobCombo = new ArrayList<Integer>();
+                System.out.println("Combo Was Wrong! We Where So WRONG");
+                break;
+            } else {
+
+                System.out.println("Combo was Good!");
+                if (f == (passengerCombo.size() - 1)) {
+                    bobCombo = new ArrayList<Integer>();
+                    System.out.println("COMBO COMPLETE: Give Bob Points");
+                }
+            }
+        }
+
+
+    }
+
+    public void bobIsPunchingATicket(int key) {
+        this.bobCombo.add(key);
+    }
+
     public boolean isBobAbleToMove() {
         return bobAbleToMove;
     }
 
     public void setBobAbleToMove(Boolean bobAbleToMove) {
         this.bobAbleToMove = bobAbleToMove;
+    }
+
+    public ArrayList<Integer> getPassengerCombo() {
+        ArrayList<Integer> passengerCombo = new ArrayList<>();
+        passengerCombo.add(Input.Keys.CONTROL_LEFT);
+        passengerCombo.add(Input.Keys.SHIFT_LEFT);
+        return passengerCombo;
     }
 
     enum Keys {
