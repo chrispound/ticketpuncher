@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2
 import com.gamejam.actors.Bob
 import com.gamejam.controllers.BobController
 import com.gamejam.game.GameJam
-import com.gamejam.views.World
+import com.gamejam.views.Terminal
 
 /**
  * Created by 
@@ -28,23 +28,23 @@ class GameScreen implements Screen, InputProcessor {
     //Lines are 704(11)x64
 
     final GameJam game
-    private SpriteBatch batch;
-    private BobController controller;
-    int width;
-    int height;
+    SpriteBatch batch
+    BobController controller
+    int width
+    int height
     SpriteBatch spriteBatch = new SpriteBatch()
     Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
     Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
-    private Bob bobTheAlmighty;
-    private World world;
+    Bob bobTheAlmighty
+    Terminal terminal
 
 
     GameScreen(GameJam game) {
-        world = new World();
-        this.batch = new SpriteBatch();
+        terminal = new Terminal()
+        this.batch = new SpriteBatch()
         this.game = game
-        controller = new BobController(world);
-        bobTheAlmighty = world.bobTheAlmighty;
+        controller = new BobController(terminal)
+        bobTheAlmighty = terminal.bobTheAlmightyPuncherOfAllThings
 
     }
 
@@ -76,9 +76,7 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void show() {
-        controller = new BobController(world)
         Gdx.input.setInputProcessor(this)
-        println("I'm showing!")
     }
 
 
@@ -105,24 +103,24 @@ class GameScreen implements Screen, InputProcessor {
     private void drawBob() {
         Vector2 bobsPosition = new Vector2()
         int posY = 200
-        Texture bobImgLocation = new Texture("bob.png");
+        Texture bobImgLocation = new Texture("bob.png")
         TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128)
         switch (bobTheAlmighty.getCurrentRow()) {
             case 1:
                 bobsPosition.set(112, 640)
-                break;
+                break
             case 2:
                 bobsPosition.set(296, 640)
-                break;
+                break
             case 3:
                 bobsPosition.set(480, 640)
-                break;
+                break
             case 4:
                 bobsPosition.set(664, 640)
-                break;
+                break
             case 5:
                 bobsPosition.set(848, 640)
-                break;
+                break
         }
         spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128)
     }
@@ -132,14 +130,14 @@ class GameScreen implements Screen, InputProcessor {
     boolean keyDown(int keycode) {
         println("USER PRESSED: " + keycode)
         if (keycode == Input.Keys.LEFT) {
-            controller.movingLeft();
-            println("user moving left");
+            controller.movingLeft()
+            println("user moving left")
         } else if (keycode == Input.Keys.RIGHT) {
-            controller.movingRight();
-            println("user moving right");
+            controller.movingRight()
+            println("user moving right")
         }
         controller.processInputMapDeterminePosition()
-        return true;
+        return true
     }
 
     @Override
@@ -149,10 +147,10 @@ class GameScreen implements Screen, InputProcessor {
         if (keycode == Input.Keys.LEFT) {
             controller.stopMovingLeft()
         } else if (keycode == Input.Keys.RIGHT) {
-            controller.stopMovingRight();
+            controller.stopMovingRight()
         }
 
-        return true;
+        return true
     }
 
     /*
