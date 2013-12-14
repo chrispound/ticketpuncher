@@ -1,6 +1,5 @@
 package com.gamejam.controllers;
 
-import com.badlogic.gdx.Input;
 import com.gamejam.actors.Bob;
 import com.gamejam.model.Terminal;
 
@@ -20,9 +19,8 @@ public class BobController {
     private Bob bobTheAlmighty;
     private Terminal terminal;
     private boolean bobAbleToMove = true;
-    private boolean mapUpdatable = true;
+    private boolean mapUpdateable = true;
     private ArrayList<Integer> bobCombo = new ArrayList<Integer>();
-    private ArrayList<Integer> passengerCombo;
 
 
     public BobController(Terminal terminal) {
@@ -31,8 +29,8 @@ public class BobController {
         this.bobTheAlmighty = terminal.getBobTheAlmightyPuncherOfAllThings();
     }
 
-    public void setMapUpdatable(boolean p) {
-        this.mapUpdatable = p;
+    public void setMapUpdateable(boolean p) {
+        this.mapUpdateable = p;
     }
 
 
@@ -51,16 +49,16 @@ public class BobController {
     //1 //2 player start and join
     //5 //6 player coin buttons
     public void movingLeft() {
-        if (mapUpdatable) {
+        if (mapUpdateable) {
             input.put(Keys.LEFT, true);
             stopMovingRight();
-            mapUpdatable = false;
+            mapUpdateable = false;
         }
     }
 
     public void movingRight() {
-        if (mapUpdatable) {
-            mapUpdatable = false;
+        if (mapUpdateable) {
+            mapUpdateable = false;
             input.put(Keys.RIGHT, true);
             stopMovingLeft();
         }
@@ -99,7 +97,7 @@ public class BobController {
 
     public void checkIfComboIsCorrect() {
         //check passenger ticket
-        ArrayList<Integer> passengerCombo = getPassengerCombo();
+        ArrayList<Integer> passengerCombo = terminal.passenger.getPassengerCombo();
         for (int f = 0; f < bobCombo.size(); f++) {
             if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                 bobCombo = new ArrayList<Integer>();
@@ -128,13 +126,6 @@ public class BobController {
 
     public void setBobAbleToMove(Boolean bobAbleToMove) {
         this.bobAbleToMove = bobAbleToMove;
-    }
-
-    public ArrayList<Integer> getPassengerCombo() {
-        ArrayList<Integer> passengerCombo = new ArrayList<>();
-        passengerCombo.add(Input.Keys.CONTROL_LEFT);
-        passengerCombo.add(Input.Keys.SHIFT_LEFT);
-        return passengerCombo;
     }
 
     enum Keys {

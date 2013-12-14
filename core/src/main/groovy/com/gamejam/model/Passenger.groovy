@@ -1,5 +1,6 @@
 package com.gamejam.model
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 
 /**
@@ -10,12 +11,21 @@ import com.badlogic.gdx.graphics.Texture
  */
 class Passenger {
     long points
-    def combo
+    ArrayList<Integer> combo
     Texture passengerTexture
 
-    Passenger(long points, combo, Texture passengerTexture) {
+    Passenger(long points, ArrayList<Integer> combo, Texture passengerTexture) {
         this.points = points
-        this.combo = combo
+        this.combo = getPassengerCombo()
         this.passengerTexture = passengerTexture
+    }
+
+    public ArrayList<Integer> getPassengerCombo() {
+        ArrayList<Integer> passengerCombo = new ArrayList<>();
+        passengerCombo.add(Input.Keys.CONTROL_LEFT);
+        passengerCombo.add(Input.Keys.SHIFT_LEFT);
+        passengerCombo.add(Input.Keys.SHIFT_LEFT);
+        passengerCombo.add(Input.Keys.X);
+        return passengerCombo;
     }
 }
