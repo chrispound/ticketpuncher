@@ -24,7 +24,7 @@ public class BobsFriendController {
 
     public BobsFriendController(Terminal terminal) {
         this.terminal = terminal;
-        this.bobsFriend = terminal.getBobsFriend();
+//        this.bobsFriend = terminal.getBobsFriend();
     }
 
     public void setMapUpdatable(boolean p) {

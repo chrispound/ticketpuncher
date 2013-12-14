@@ -1,8 +1,10 @@
 package com.gamejam.screens
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.GL10
 import com.gamejam.controller.TerminalController
 import com.gamejam.game.GameJam
 import com.gamejam.model.Terminal
