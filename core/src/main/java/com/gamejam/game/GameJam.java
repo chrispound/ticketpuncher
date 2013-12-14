@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.gamejam.screens.SplashScreen;
 
 
@@ -39,13 +38,7 @@ public class GameJam extends Game implements ApplicationListener {
     public void render() {
         super.render();
         fpsLogger.log();
-        //call world renderer.
-       // drawBob();
     }
-
-    /**
-     * Hi I draw Bob.
-     */
 
     @Override
     public void resize(int width, int height) {

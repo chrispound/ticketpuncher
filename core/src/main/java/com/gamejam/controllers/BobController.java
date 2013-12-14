@@ -1,6 +1,7 @@
 package com.gamejam.controllers;
 
-import com.badlogic.gdx.Input;
+import com.gamejam.actors.Bob;
+import com.gamejam.views.World;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,15 @@ import java.util.Map;
 public class BobController {
 
     private static Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
+    private Bob bobTheAlmighty;
+    private World world;
+
+
+    public BobController(World world) {
+
+        this.world = world;
+        this.bobTheAlmighty = world.getBobTheAlmighty();
+    }
 
     enum Keys {
         LEFT, RIGHT

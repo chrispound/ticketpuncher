@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
-
 import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.gamejam.actors.Bob
 import com.gamejam.controllers.BobController
 import com.gamejam.game.GameJam
+import com.gamejam.views.World
 
 /**
  * Created by 
@@ -33,21 +34,26 @@ class GameScreen implements Screen, InputProcessor {
     SpriteBatch spriteBatch = new SpriteBatch()
     Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
     Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
+    private Bob bobTheAlmighty;
+    private World world;
 
     GameScreen(GameJam game) {
         this.batch = new SpriteBatch();
         this.game = game
+        controller = new BobController();
+        bobTheAlmighty = world.bobTheAlmighty;
+
     }
 
     @Override
     void render(float delta) {
         def startLineX = 112
         def separationPixels = 184
-        def startingLineY = 672-32
+        def startingLineY = 672 - 32
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
         spriteBatch.begin()
-        spriteBatch.draw(deskTexture, 112, 800-64-32)
+        spriteBatch.draw(deskTexture, 112, 800 - 64 - 32)
         drawBob()
         (0..4).each { lineNumber ->
             def tempLineY = startingLineY
@@ -67,6 +73,8 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void show() {
+        controller = new BobController(bobTheAlmighty);
+        Gdx.input.setInputProcessor(this);
         println("I'm showing!")
     }
 
@@ -96,11 +104,10 @@ class GameScreen implements Screen, InputProcessor {
         spriteBatch.draw(bobsArea, 128, 128, 128, 128);
     }
 
-    }
 
     @Override
     boolean keyDown(int keycode) {
-       println("USER PRESSED: " + keycode);
+        println("USER PRESSED: " + keycode);
         if (keycode == Input.Keys.LEFT) {
             controller.movingLeft();
             println("user moving left");
