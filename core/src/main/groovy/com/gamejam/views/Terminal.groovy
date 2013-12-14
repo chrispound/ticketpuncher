@@ -1,4 +1,8 @@
-package com.gamejam.model
+package com.gamejam.views
+
+import com.gamejam.actors.Bob
+import com.gamejam.model.Line
+import com.gamejam.model.Passenger
 
 /**
  * Created by 
@@ -8,9 +12,11 @@ package com.gamejam.model
  */
 class Terminal {
     Map<String, List<Line>> linesMap
+    Bob bobTheAlmightyPuncherOfAllThings
 
     Terminal() {
         linesMap = [open : [new Line(1), new Line(2), new Line(3), new Line(4), new Line(5)], closed : []]
+        bobTheAlmightyPuncherOfAllThings = new Bob()
     }
 
     def addPerson(Passenger passenger) {

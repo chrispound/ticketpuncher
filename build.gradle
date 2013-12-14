@@ -53,6 +53,4 @@ project(":desktop") {
     }
 
     mainClassName = "com.badlogic.gradletest.DesktopLauncher"
-    sourceSets.main.resources.srcDirs = [file("./assets").getAbsolutePath()]
-
 }

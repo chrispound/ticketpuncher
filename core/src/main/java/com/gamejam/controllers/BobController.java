@@ -1,7 +1,7 @@
 package com.gamejam.controllers;
 
 import com.gamejam.actors.Bob;
-import com.gamejam.views.World;
+import com.gamejam.views.Terminal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,15 +16,15 @@ public class BobController {
     private static final int END_OF_RIGHT = 5;
     private Map<Keys, Boolean> input = new HashMap<Keys, Boolean>();
     private Bob bobTheAlmighty;
-    private World world;
+    private Terminal terminal;
     private boolean bobAbleToMove = true;
     private boolean mapUpdatable = true;
 
 
-    public BobController(World world) {
+    public BobController(Terminal terminal) {
 
-        this.world = world;
-        this.bobTheAlmighty = world.getBobTheAlmighty();
+        this.terminal = terminal;
+        this.bobTheAlmighty = terminal.getBobTheAlmightyPuncherOfAllThings();
     }
 
     public void setMapUpdatable(boolean p) {
