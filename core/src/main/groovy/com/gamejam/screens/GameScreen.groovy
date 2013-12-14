@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.gamejam.actors.Bob
+import com.gamejam.actors.BobsFriend
 import com.gamejam.controllers.BobController
+import com.gamejam.controllers.BobsFriendController
 import com.gamejam.game.GameJam
 import com.gamejam.views.Terminal
 
@@ -30,12 +32,14 @@ class GameScreen implements Screen, InputProcessor {
     final GameJam game
     SpriteBatch batch
     BobController controller
+    BobsFriendController bobsFriendController
     int width
     int height
     SpriteBatch spriteBatch = new SpriteBatch()
     Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
     Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
     Bob bobTheAlmighty
+    BobsFriend bobsFriend
     Terminal terminal
 
 
@@ -43,8 +47,12 @@ class GameScreen implements Screen, InputProcessor {
         terminal = new Terminal()
         this.batch = new SpriteBatch()
         this.game = game
+
         controller = new BobController(terminal)
         bobTheAlmighty = terminal.bobTheAlmightyPuncherOfAllThings
+
+        bobsFriendController = new BobsFriendController(terminal)
+        bobsFriend = terminal.bobsFriend
 
     }
 
@@ -58,6 +66,7 @@ class GameScreen implements Screen, InputProcessor {
         spriteBatch.begin()
         spriteBatch.draw(deskTexture, 112, 800 - 64 - 32)
         drawBob()
+        drawBobsFriend()
         (0..4).each { lineNumber ->
             def tempLineY = startingLineY
             (1..11).each {
@@ -105,7 +114,7 @@ class GameScreen implements Screen, InputProcessor {
         int posY = 200
         Texture bobImgLocation = new Texture("bob.png")
         TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128)
-        switch (bobTheAlmighty.getCurrentRow()) {
+        switch (bobTheAlmighty.getCurrentLine()) {
             case 1:
                 bobsPosition.set(112, 640)
                 break
@@ -125,6 +134,21 @@ class GameScreen implements Screen, InputProcessor {
         spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128)
     }
 
+    private void drawBobsFriend() {
+        Vector2 bobsFriendPosition = new Vector2()
+        int posY = 0
+        Texture bobFriendImgLocation = new Texture("BobFriendStill.png")
+        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 128, 128)
+        switch (bobsFriend.getCurrentRow()) {
+            case 0:
+                bobsFriendPosition.set(112, 0)
+                break
+            case 1:
+                bobsFriendPosition.set(112, 1)
+
+        }
+        spriteBatch.draw(bobsArea, bobsFriendPosition.x, bobsFriendPosition.y, 128, 128)
+    }
 
     @Override
     boolean keyDown(int keycode) {

@@ -20,7 +20,7 @@ public class Bob {
     Vector2 acceleration = new Vector2();
     Vector2 velocity = new Vector2();
     Rectangle bounds = new Rectangle();
-    int currentRow = 3;
+    int currentLine = 3;
     boolean facingLeft = true;
     float stateTime = 0;
 
@@ -39,11 +39,11 @@ public class Bob {
 //        position.add(velocity.cpy().scl(delta));
     }
 
-    public void setCurrentRow(int currentRow) {
-        this.currentRow = currentRow;
+    public void setCurrentLine(int currentLine) {
+        this.currentLine = currentLine;
     }
 
-    public int getCurrentRow() {
-        return this.currentRow;
+    public int getCurrentLine() {
+        return this.currentLine;
     }
 }

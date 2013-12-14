@@ -81,13 +81,13 @@ public class BobController {
             if (input.get(Keys.RIGHT) != null) {
                 right = input.get(Keys.RIGHT);
             }
-            int currentRow = bobTheAlmighty.getCurrentRow();
+            int currentRow = bobTheAlmighty.getCurrentLine();
             if (left && currentRow != END_OF_LEFT) {
 
-                bobTheAlmighty.setCurrentRow(--currentRow);
+                bobTheAlmighty.setCurrentLine(--currentRow);
 
             } else if (right && currentRow != END_OF_RIGHT) {
-                bobTheAlmighty.setCurrentRow(++currentRow);
+                bobTheAlmighty.setCurrentLine(++currentRow);
             }
 
         }

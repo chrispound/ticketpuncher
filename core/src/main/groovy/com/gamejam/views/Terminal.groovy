@@ -1,6 +1,7 @@
 package com.gamejam.views
 
 import com.gamejam.actors.Bob
+import com.gamejam.actors.BobsFriend
 import com.gamejam.model.Line
 import com.gamejam.model.Passenger
 
@@ -13,10 +14,12 @@ import com.gamejam.model.Passenger
 class Terminal {
     Map<String, List<Line>> linesMap
     Bob bobTheAlmightyPuncherOfAllThings
+    BobsFriend bobsFriend
 
     Terminal() {
         linesMap = [open : [new Line(1), new Line(2), new Line(3), new Line(4), new Line(5)], closed : []]
         bobTheAlmightyPuncherOfAllThings = new Bob()
+        bobsFriend = new BobsFriend()
     }
 
     def addPerson(Passenger passenger) {
