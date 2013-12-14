@@ -7,7 +7,6 @@ sourceSets.main.resources.srcDirs = [file("./assets").getAbsolutePath()]
 
 // idea doesn't like relative paths outside of content root...
 tasks.ideaModule.doFirst { 
-	println "huzzs"
 	sourceSets.main.resources.srcDirs = [] 
 }
 
