@@ -32,7 +32,7 @@ public abstract class ArcadeScreen implements Screen {
     private Skin skin;
     private TextureAtlas atlas;
     private Table table;
-    protected final Stage stage;
+    protected Stage stage;
 
     protected ArcadeScreen(GameJam game) {
         this.game = game;
