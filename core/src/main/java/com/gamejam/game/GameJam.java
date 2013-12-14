@@ -31,13 +31,6 @@ public class GameJam extends Game implements ApplicationListener {
         Gdx.app.log(TAG, "Creating Game");
         batch = new SpriteBatch();
         setScreen(getSplashScreen());
-        //img = new Texture("C:\\Users\\Atlas\\Pictures\\playstore.png");
-//		try {
-//			new FreeTypeFontGenerator(Gdx.files.internal("test.fnt"));
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		Bullet.init();
     }
 
     @Override
