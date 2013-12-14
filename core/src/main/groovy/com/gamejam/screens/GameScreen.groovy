@@ -14,9 +14,11 @@ import com.gamejam.actors.Bob
 import com.gamejam.actors.BobsFriend
 import com.gamejam.controllers.BobController
 import com.gamejam.controllers.BobsFriendController
+import com.gamejam.controllers.ComboAnimatorController
 import com.gamejam.game.GameJam
 import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Terminal
+
 import static com.gamejam.model.PosHelper.*
 
 /**
@@ -27,6 +29,11 @@ import static com.gamejam.model.PosHelper.*
  */
 class GameScreen implements Screen, InputProcessor {
 
+    //Desk is 800x64
+    //Bob is 64x64
+    //Customers are 64x64
+    //Lines are 704(11)x64
+
     final GameJam game
     SpriteBatch batch
     BobController controller
@@ -36,10 +43,13 @@ class GameScreen implements Screen, InputProcessor {
     SpriteBatch spriteBatch = new SpriteBatch()
     Texture lineTexture = new Texture(Gdx.files.internal("templine.png"))
     Texture deskTexture = new Texture(Gdx.files.internal("desk.png"))
+    Texture bobTextue = new Texture(Gdx.files.internal("bob.png"))
+    Texture bobFriendImgLocation = new Texture("BobFriendStill.png")
     Bob bobTheAlmighty
     BobsFriend bobsFriend
     Terminal terminal
     OrthographicCamera camera
+    ComboAnimatorController comboAnimatorController
 
 
     GameScreen(GameJam game) {
@@ -49,7 +59,7 @@ class GameScreen implements Screen, InputProcessor {
 
         controller = new BobController(terminal)
         bobTheAlmighty = terminal.bobTheAlmightyPuncherOfAllThings
-
+        comboAnimatorController = new ComboAnimatorController(terminal, this)
         bobsFriendController = new BobsFriendController(terminal)
         bobsFriend = terminal.bobsFriend
         this.camera = new OrthographicCamera()
@@ -73,6 +83,7 @@ class GameScreen implements Screen, InputProcessor {
                 drawBobsFriend(line.getLinePosition(linePos))
             }
         }
+        comboAnimatorController.drawCombo(batch)
         spriteBatch.end()
     }
 
@@ -106,14 +117,13 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     void dispose() {
-        
+        super.dispose()
     }
 
     private void drawBob() {
         Vector2 bobsPosition = new Vector2()
         int posY = 200
-        Texture bobImgLocation = new Texture("bob.png")
-        TextureRegion bobsArea = new TextureRegion(bobImgLocation, 128, 128)
+        TextureRegion bobsArea = new TextureRegion(bobTextue, 128, 128)
         switch (bobTheAlmighty.getCurrentLine()) {
             case 1:
                 bobsPosition.set(112, 640)
@@ -137,7 +147,6 @@ class GameScreen implements Screen, InputProcessor {
     private void drawBobsFriend(Vector2 position) {
         Vector2 bobsFriendPosition = new Vector2()
         int posY = 0
-        Texture bobFriendImgLocation = new Texture("BobFriendStill.png")
         TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 64, 64)
         switch (bobsFriend.getCurrentRow()) {
             case 0:
@@ -176,7 +185,7 @@ class GameScreen implements Screen, InputProcessor {
     @Override
     boolean keyUp(int keycode) {
         controller.setBobAbleToMove(true)
-        controller.setMapUpdatable(true)
+        controller.setMapUpdateable(true)
         if (keycode == Input.Keys.LEFT) {
             controller.stopMovingLeft()
         } else if (keycode == Input.Keys.RIGHT) {

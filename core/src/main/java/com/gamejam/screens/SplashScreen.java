@@ -50,7 +50,7 @@ public class SplashScreen extends ArcadeScreen {
         splashImageActor = new Image(new Texture("gjlogoTitle.png"));
 
         // we set the linear texture filter to improve the stretching
-       // splashImageActor.setFillParent(true);
+        splashImageActor.setFillParent(true);
         splashImageActor.addAction(sequence(fadeIn(0.75f), delay(1.75f), fadeOut(0.75f),
                 new Action() {
                     @Override
