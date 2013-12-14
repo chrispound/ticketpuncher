@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.gamejam.game.GameJam;
 
@@ -30,6 +32,7 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     public static final float BUTTON_WIDTH = 300f;
     public static final float BUTTON_HEIGHT = 60f;
     public static final float BUTTON_SPACING = 10f;
+    public Image gameLogo;
 
 
     public MainMenu(GameJam game) {
@@ -59,6 +62,9 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         title.setFontScale(3);
         title.setColor(Color.WHITE);
         stage.addActor(title);
+
+        gameLogo = new Image(new Texture("gameLogo.jpg"));
+        stage.addActor(gameLogo);
 
         Label pressToContinue = new Label("Press Player 1 Start To Continue", getSkin());
         pressToContinue.setFontScale(1.5f);

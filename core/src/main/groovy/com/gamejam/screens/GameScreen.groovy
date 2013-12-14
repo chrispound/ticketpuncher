@@ -65,10 +65,11 @@ class GameScreen implements Screen, InputProcessor {
         spriteBatch.begin()
         spriteBatch.draw(deskTexture, PositionHelper.gameStageStartX.toFloat(), (PositionHelper.gameStageStartY - PositionHelper.deskHeight).toFloat())
         drawBob()
-        drawBobsFriend()
+
         LinePosHelper.each { line ->
             (0..9).each { linePos ->
                 spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
+                drawBobsFriend(line.getLinePosition(linePos))
             }
         }
         spriteBatch.end()
@@ -132,11 +133,11 @@ class GameScreen implements Screen, InputProcessor {
         spriteBatch.draw(bobsArea, bobsPosition.x, bobsPosition.y, 128, 128)
     }
 
-    private void drawBobsFriend() {
+    private void drawBobsFriend(Vector2 position) {
         Vector2 bobsFriendPosition = new Vector2()
         int posY = 0
         Texture bobFriendImgLocation = new Texture("BobFriendStill.png")
-        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 128, 128)
+        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 64, 64)
         switch (bobsFriend.getCurrentRow()) {
             case 0:
                 bobsFriendPosition.set(112, 0)
@@ -145,7 +146,7 @@ class GameScreen implements Screen, InputProcessor {
                 bobsFriendPosition.set(112, 1)
 
         }
-        spriteBatch.draw(bobsArea, bobsFriendPosition.x, bobsFriendPosition.y, 128, 128)
+        spriteBatch.draw(bobsArea, position.x, position.y)
     }
 
     @Override
