@@ -17,9 +17,13 @@ import com.gamejam.game.GameJam;
  * To change this template use File | Settings | File Templates.
  */
 public class MainMenu extends ArcadeScreen implements InputProcessor {
-    /** is done flag **/
+    /**
+     * is done flag *
+     */
     private boolean isDone = false;
-    /** com.gamejam.view & transform matrix **/
+    /**
+     * com.gamejam.view & transform matrix *
+     */
     private final Matrix4 viewMatrix = new Matrix4();
     private final Matrix4 transformMatrix = new Matrix4();
 
@@ -28,17 +32,17 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     public static final float BUTTON_SPACING = 10f;
 
 
-    public MainMenu (GameJam game) {
+    public MainMenu(GameJam game) {
         super(game);
     }
 
     @Override
-    public boolean isDone () {
+    public boolean isDone() {
         return isDone;
     }
 
     @Override
-    public void update (float delta) {
+    public void update(float delta) {
         if (Gdx.input.justTouched()) {
             isDone = true;
         }
@@ -50,7 +54,7 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         // label "welcome"
-        Label title = new Label("Ticket Master", getSkin());
+        Label title = new Label("Ticket Puncher", getSkin());
         title.setPosition(325, 500);
         title.setFontScale(3);
         title.setColor(Color.WHITE);
@@ -86,14 +90,14 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     }
 
     @Override
-    public void draw (float delta) {
+    public void draw(float delta) {
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
 
     }
 

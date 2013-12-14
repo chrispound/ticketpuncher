@@ -129,16 +129,25 @@ class GameScreen implements Screen, InputProcessor {
     @Override
     boolean keyDown(int keycode) {
         println("USER PRESSED: " + keycode)
-        if (keycode == Input.Keys.LEFT) {
-            controller.movingLeft()
-            println("user moving left")
-        } else if (keycode == Input.Keys.RIGHT) {
-            controller.movingRight()
-            println("user moving right")
+        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT) {
+
+            if (keycode == Input.Keys.LEFT) {
+                controller.movingLeft()
+                println("user moving left")
+            } else if (keycode == Input.Keys.RIGHT) {
+                controller.movingRight()
+                println("user moving right")
+            }
+            controller.processInputMapDeterminePosition()
+        } else {
+            println("Bob Is Punching a Ticket")
+            controller.bobIsPunchingATicket(keycode)
+            controller.checkIfComboIsCorrect()
         }
-        controller.processInputMapDeterminePosition()
-        return true
+
+        return true;
     }
+
 
     @Override
     boolean keyUp(int keycode) {
@@ -187,6 +196,6 @@ class GameScreen implements Screen, InputProcessor {
         return false
     }
     /*
-    END OF UNSED CONTROLS
+    END OF UNUSED CONTROLS
      */
 }
