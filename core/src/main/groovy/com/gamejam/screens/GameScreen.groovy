@@ -49,7 +49,11 @@ class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
 
-        if (!terminalController.update()) game.setScreen(new GameOverScreen(game))
+        if (!terminalController.update()) {
+            game.profileManager.retrieveProfile().notifyScore(terminal.bob.score)
+            game.profileManager.persist()
+            game.setScreen(new GameOverScreen(game))
+        }
         terminalRenderer.render()
     }
 
