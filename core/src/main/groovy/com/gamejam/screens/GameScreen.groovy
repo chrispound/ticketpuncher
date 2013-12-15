@@ -29,7 +29,7 @@ class GameScreen implements Screen, InputProcessor {
     Random random
     //These twotimes are in nanoseconds as its most accurate
     long lastPassengerTime
-    long timeBetweenPassengers = 1000000000
+    long timeBetweenPassengers = 2000000000
 
     GameScreen(GameJam game) {
         this.game = game

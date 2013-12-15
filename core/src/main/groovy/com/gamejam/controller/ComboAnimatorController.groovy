@@ -51,6 +51,8 @@ class ComboAnimatorController {
     static Texture xTextureGood = new Texture(Gdx.files.internal(("buttons/btn_good_x.png")))
     static Texture spaceTextureGood = new Texture(Gdx.files.internal(("buttons/btn_good_space.png")))
 
+    static Texture killTexture = new Texture(Gdx.files.internal('skullCrossBones.png'))
+
     static final POS_X = 5
     static final POS_Y_START = 645
     static final POSY_Y_MULTIPLIER = 84
@@ -78,7 +80,7 @@ class ComboAnimatorController {
         ArrayList<Integer> bobCombo = terminal.bob.combo
         ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         Texture updatedTexture
-        if (passengerCombo.size() > 0) {
+        if (passengerCombo.size() > 0 && passengerCombo[0] != terminal.KILL_SWITCH) {
             for (int f = 0; f < bobCombo.size(); f++) {
                 if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                     terminal.bob.combo = new ArrayList<Integer>();
@@ -137,6 +139,8 @@ class ComboAnimatorController {
             case Input.Keys.SPACE:
             case Input.Keys.E:
                 return spaceTexture
+            case Terminal.KILL_SWITCH:
+                return killTexture
             default:
                 return null
         }

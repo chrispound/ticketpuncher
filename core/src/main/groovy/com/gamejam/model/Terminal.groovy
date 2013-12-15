@@ -6,14 +6,16 @@ package com.gamejam.model
  * at 12:03 AM
  */
 class Terminal {
+    public static final int KILL_SWITCH = 9999999
     Map<String, Line> linesMap
     Bob bob
     Passenger currentPassenger
     Random random
+    Line currentLine
 
     Terminal() {
         random = new Random()
-        linesMap = ['0': new Line(0), '1' : new Line(1), '2' : new Line(2), '3' : new Line(3), '4' : new Line(4)]
+        linesMap = ['0': new Line(0), '1': new Line(1), '2': new Line(2), '3': new Line(3), '4': new Line(4)]
         bob = new Bob(2)
         updateCurrentPassenger()
     }
@@ -26,20 +28,35 @@ class Terminal {
      * @returns true if the game should continue, false if the game is over because there are no open lines
      */
     def addPerson(Passenger passenger) {
-        if (linesMap.values().findAll{it.closed}.size() == 5) {
+        if (linesMap.values().findAll { it.closed }.size() == 5) {
             return false;
         }
 
         def openLines = linesMap.values().findAll { !it.closed }
         openLines[random.nextInt(openLines.size())].with {
-            it.isFull() ? it.closed = true : it.passengers.add(passenger)
+            if (it.isFull()) {
+                it.closed = true
+                killLine(it)
+            } else
+                it.passengers.add(passenger)
         }
 
         return true
     }
 
+    static def killLine(Line line) {
+        line.passengers.each {
+            it.combo = [KILL_SWITCH]
+            it.textureName = 'skullCrossBones.png'
+        }
+    }
+
     def updateCurrentPassenger() {
         def currentLine = linesMap[bob.currentLineNumber.toString()]
-        currentPassenger =  currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
+        currentPassenger = currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
+    }
+
+    def getCurrentLine() {
+        linesMap[bob.currentLineNumber.toString()]
     }
 }
