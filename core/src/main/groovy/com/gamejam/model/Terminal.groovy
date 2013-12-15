@@ -25,7 +25,8 @@ class Terminal {
             return false;
         }
 
-        linesMap[random.nextInt(linesMap.size()).toString()].with {
+        def openLines = linesMap.values().findAll { !it.closed }
+        openLines[random.nextInt(openLines.size())].with {
             it.isFull() ? it.closed = true : it.passengers.add(passenger)
         }
 

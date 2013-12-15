@@ -33,17 +33,15 @@ class Passenger {
     }
 
     def void generatePassengerComb() {
-        if(combo == null){
+        if (combo == null) {
             combo = new ArrayList<Integer>();
         }
+        //TODO: Convert to Arcade Machine Controls listed below...
 //        def possibleKeys = [Input.Keys.SHIFT_LEFT, Input.Keys.CONTROL_LEFT, Input.Keys.Z,
 //        Input.Keys.X, Input.Keys.ENTER, Input.Keys.SPACE]
         def possibleKeys = [Input.Keys.Q, Input.Keys.W, Input.Keys.E,
                 Input.Keys.A, Input.Keys.S, Input.Keys.D]
-        println "random number is: " + delta
-        //generate size. generate
         for (int f = 0; f < delta; f++) {
-                 //i need to generate a random number here just
             combo.add(possibleKeys[random.nextInt(MAX - MIN) + MIN])
         }
 
