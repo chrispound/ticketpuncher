@@ -47,7 +47,12 @@ class GameScreen implements Screen, InputProcessor {
 
     def spawnPassenger() {
         //Somehow make a new Passenger, will use Chris' combo generator here...
-        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png")
+        int makeBob = random.nextInt(20 - 5) + 5
+        boolean evilBob = false
+        if (makeBob == 15) {
+            evilBob = true
+        }
+        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png", evilBob)
         if (!terminalController.addPassenger(passenger))
             game.setScreen(new GameOverScreen(game))
         lastPassengerTime = TimeUtils.nanoTime()

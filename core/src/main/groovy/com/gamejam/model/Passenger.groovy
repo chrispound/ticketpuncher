@@ -18,6 +18,7 @@ class Passenger {
     int MIN = 0
     int MAX = 6
     Random random = new Random()
+    boolean evilBob
 
     Passenger(long points, ArrayList<Integer> combo, String textureName) {
         this.points = points
@@ -25,11 +26,18 @@ class Passenger {
         this.combo = combo
     }
 
-    Passenger(int delta, String textureName) {
+    Passenger(int delta, String textureName, boolean evilBob) {
         this.points = delta * 2
         this.delta = delta
         this.textureName = textureName
+        if (evilBob) {
+            this.evilBob = evilBob
+            this.textureName = "BadBob.png"
+            this.points = -5
+            this.delta = 8
+        }
         generatePassengerComb()
+
     }
 
     def void generatePassengerComb() {
@@ -47,5 +55,6 @@ class Passenger {
 
 
     }
+
 
 }

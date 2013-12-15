@@ -104,12 +104,21 @@ class TerminalController {
         ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         if (passengerCombo.size() > 0) {
             for (int f = 0; f < terminal.bob.combo.size(); f++) {
-                if (f == (passengerCombo.size() - 1)) {
+                if (terminal.currentPassenger.evilBob && !terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
+                    terminal.bob.combo = new ArrayList<>()
+                    this.terminal.bob.updateScore(terminal.currentPassenger.points);
+                    this.terminal.bob.updateTicketsPunched();
+                    popCurrentPassenger()
+                } else if (f == (passengerCombo.size() - 1)) {
+                    if (terminal.currentPassenger.evilBob) {
+                        terminal.currentPassenger.points = 30
+                    }
                     terminal.bob.combo = new ArrayList<Integer>();
                     this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
                     popCurrentPassenger()
                 }
+
             }
 
         }
