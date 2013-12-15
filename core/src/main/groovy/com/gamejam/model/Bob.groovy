@@ -1,6 +1,5 @@
 package com.gamejam.model
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
 /**

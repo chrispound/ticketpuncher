@@ -104,7 +104,9 @@ public class GameJam extends Game implements ApplicationListener {
     public void loopMusic() {
         this.music.setLooping(true);
     }
-
+    public void setVolume(float volume) {
+        this.music.setVolume(volume);
+    }
     public ProfileManager getProfileManager() {
         return profileManager;
     }

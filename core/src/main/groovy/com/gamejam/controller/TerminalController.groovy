@@ -1,5 +1,7 @@
 package com.gamejam.controller
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.utils.TimeUtils
 import com.gamejam.model.Bob
 import com.gamejam.model.LinePosHelper
@@ -19,6 +21,9 @@ class TerminalController {
     Bob bob
     Terminal terminal
     def movementProcessed = true
+    Sound evilLaugh = Gdx.audio.newSound(Gdx.files.internal("evilLaugh.mp3"));
+    Sound jab = Gdx.audio.newSound(Gdx.files.internal("jab.mp3"));
+    Sound comboError = Gdx.audio.newSound(Gdx.files.internal("comboerror.wav"));
     long lastPassengerTime
     long timeBetweenPassengers = 2.0e+9
     long increaseSpawnRateTime = 0.25e+9
@@ -167,6 +172,7 @@ class TerminalController {
                     terminal.bob.combo = new ArrayList<>()
                     this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
+                    evilLaugh.play()
                     popCurrentPassenger()
                 } else if (terminal.bob.combo.size() - 1 >= f &&
                         terminal.currentPassenger.combo.size() - 1 >= f &&
@@ -176,14 +182,17 @@ class TerminalController {
                             terminal.currentPassenger.points = -terminal.currentPassenger.points
                         }
                         terminal.bob.combo = new ArrayList<Integer>();
+                        jab.play()
                         this.terminal.bob.updateScore(terminal.currentPassenger.points);
                         this.terminal.bob.updateTicketsPunched();
                         popCurrentPassenger()
                     }
+                } else if(terminal.bob.combo.size() - 1 >= f &&
+                        terminal.currentPassenger.combo.size() - 1 >= f &&
+                        !terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
+                    comboError.play()
                 }
-
             }
-
         }
     }
 
