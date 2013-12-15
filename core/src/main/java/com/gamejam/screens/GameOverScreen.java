@@ -19,21 +19,19 @@ import com.gamejam.game.GameJam;
 public class GameOverScreen extends ArcadeScreen implements InputProcessor {
 
     private Image gameOver;
-    Music music;
 
-    public GameOverScreen(GameJam game, Music music) {
+    protected GameOverScreen(GameJam game) {
         super(game);
-        this.music = music;
     }
      //init commit
     @Override
     public void show() {
         super.show();
 
-        music.stop();
-        music = Gdx.audio.newMusic(Gdx.files.internal("AustinPowers.mp3"));
-        music.setLooping(true);
-        music.play();
+        game.stopMusic();
+        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("AustinPowers.mp3")));
+        game.loopMusic();
+        game.playMusic();
 
 
         //do cool magic scene2d here
@@ -82,10 +80,10 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
         switch (keycode) {
             case Input.Keys.ENTER:
             case Input.Keys.SPACE:
-                game.setScreen(new GameScreen(game, music));
+                game.setScreen(new GameScreen(game));
                 break;
             default:
-                game.setScreen(new MainMenu(game, music));
+                game.setScreen(new MainMenu(game));
                 break;
         }
         return true;

@@ -33,14 +33,10 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     public static final float BUTTON_HEIGHT = 60f;
     public static final float BUTTON_SPACING = 10f;
     public Image gameLogo;
-    //Music music;
-    Music music;
 
-    public MainMenu(GameJam game, Music music) {
+    public MainMenu(GameJam game) {
         super(game);
-        this.music = music;
     }
-
     @Override
     public boolean isDone() {
         return isDone;
@@ -119,7 +115,7 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     public boolean keyDown(int keycode) {
 
         if (keycode == Input.Keys.ENTER || keycode == Input.Keys.NUM_1) {
-            game.setScreen(new GameScreen(game, music));
+            game.setScreen(new GameScreen(game));
         }
         return true;
     }

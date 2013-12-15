@@ -30,25 +30,23 @@ class GameScreen implements Screen, InputProcessor {
     //These twotimes are in nanoseconds as its most accurate
     long lastPassengerTime
     long timeBetweenPassengers = 1000000000
-    Music music
 
-    GameScreen(GameJam game, Music music) {
+    GameScreen(GameJam game) {
         this.game = game
         random = new Random()
         terminal = new Terminal()
         terminalController = new TerminalController(terminal)
         terminalRenderer = new TerminalRenderer(terminal)
         spawnPassenger()
-        this.music = music
     }
     @Override
     void show() {
         Gdx.input.setInputProcessor(this)
 
-        music.stop()
-        music = Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3"))
-        music.setLooping(true)
-        music.play()
+        game.stopMusic()
+        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3")))
+        game.loopMusic();
+        game.playMusic()
     }
 
     def spawnPassenger() {
@@ -60,7 +58,7 @@ class GameScreen implements Screen, InputProcessor {
         }
         Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png", evilBob)
         if (!terminalController.addPassenger(passenger))
-            game.setScreen(new GameOverScreen(game, music))
+            game.setScreen(new GameOverScreen(game))
         lastPassengerTime = TimeUtils.nanoTime()
     }
 

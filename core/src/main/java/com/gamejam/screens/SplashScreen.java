@@ -16,67 +16,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class SplashScreen extends ArcadeScreen {
     private Image splashImageActor;
     private TextureRegion splashTextureRegion;
-    Music music = new Music() {
-        @Override
-        public void play() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void pause() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void stop() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public boolean isPlaying() {
-            return false;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void setLooping(boolean isLooping) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public boolean isLooping() {
-            return false;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void setVolume(float volume) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public float getVolume() {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void setPan(float pan, float volume) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public float getPosition() {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void dispose() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void setOnCompletionListener(OnCompletionListener listener) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-    };
 
     public SplashScreen(GameJam game) {
         super(game);
@@ -109,9 +48,9 @@ public class SplashScreen extends ArcadeScreen {
         // load the splash image and create the texture region
         splashImageActor = new Image(new Texture("gjlogoTitle.png"));
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("DrP_Tetris.mp3"));
-        music.setLooping(true);
-        music.play();
+        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("DrP_Tetris.mp3")));
+        game.loopMusic();
+        game.playMusic();
 
         // we set the linear texture filter to improve the stretching
         splashImageActor.setFillParent(true);
@@ -121,7 +60,7 @@ public class SplashScreen extends ArcadeScreen {
                     public boolean act(
                             float delta) {
                         // the last action will move to the next screen
-                        game.setScreen(new MainMenu(game, music));
+                        game.setScreen(new MainMenu(game));
                         return true;
                     }
                 }));
