@@ -82,8 +82,10 @@ class TerminalController {
 
                 System.out.println("Combo was Good!")
                 if (f == (passengerCombo.size() - 1)) {
-                    bobCombo = new ArrayList<Integer>()
-                    System.out.println("COMBO COMPLETE: Give Bob Points")
+                    bobCombo = new ArrayList<Integer>();
+                    System.out.println("COMBO COMPLETE: Give Bob Points");
+                    this.bobTheAlmighty.updateScore();
+                    this.bobTheAlmighty.updateTicketsPunched();
                 }
             }
         }
