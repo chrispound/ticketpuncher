@@ -3,6 +3,7 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
@@ -67,16 +68,19 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         Label pressToContinue = new Label("Press Player 1 Start To Continue", getSkin());
         pressToContinue.setFontScale(1.5f);
         pressToContinue.setPosition(325, 200);
+        pressToContinue.setColor(Color.CYAN);
         stage.addActor(pressToContinue);
 
         Label howTo = new Label("Press 2 for game instructions", getSkin());
         howTo.setFontScale(1.5f);
         howTo.setPosition(325, 100);
+        howTo.setColor(Color.CYAN);
         stage.addActor(howTo);
 
         Label goToHighScore = new Label("Press Player H to see high scores", getSkin());
         goToHighScore.setFontScale(1.5f);
         goToHighScore.setPosition(325, 150);
+        goToHighScore.setColor(Color.CYAN);
         stage.addActor(goToHighScore);
 
     }

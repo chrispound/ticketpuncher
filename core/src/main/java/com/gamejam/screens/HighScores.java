@@ -3,6 +3,9 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.gamejam.game.GameJam;
 
@@ -10,6 +13,7 @@ import com.gamejam.game.GameJam;
  * Created by Chris on 12/15/13.
  */
 public class HighScores extends ArcadeScreen implements InputProcessor {
+
     protected HighScores(GameJam game) {
         super(game);
     }
@@ -37,24 +41,29 @@ public class HighScores extends ArcadeScreen implements InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-        Label highScoreTitle = new Label("High Scores", getSkin());
-        highScoreTitle.setFontScale(2.5f);
-        highScoreTitle.setPosition(325, 700);
-        stage.addActor(highScoreTitle);
-        int tempY = 680;
+        Image highScoreBg = new Image(new Texture("highscore.png"));
+        highScoreBg.setPosition(0, 0);
+        stage.addActor(highScoreBg);
+        int tempY = 555;
+        int tempX = 240;
         for (int i = 0; i < game.getProfileManager().retrieveProfile().getHighScores().size(); i++) {
-            Label highScores = new Label(i + 1 + ") " + game.getProfileManager().retrieveProfile().getHighScores().get(i), getSkin());
-            highScores.setFontScale(2f);
-            tempY = tempY - 50;
-            highScores.setPosition(325, tempY);
+            Label highScores = new Label("" + game.getProfileManager().retrieveProfile().getHighScores().get(i), getSkin());
+            highScores.setFontScale(2.3f);
+            highScores.setColor(Color.CYAN);
+            if (i == 9) {
+                highScores.setPosition(tempX + 15, tempY);
+            } else {
+                highScores.setPosition(tempX, tempY);
+            }
+            tempY = tempY - 58;
             stage.addActor(highScores);
         }
 
-        Label instructions = new Label("Press enter to return to main menu", getSkin());
-        instructions.setFontScale(2.5f);
-        tempY = tempY - 50;
-        instructions.setPosition(280, tempY);
-        stage.addActor(instructions);
+//        Label instructions = new Label("Press enter to return to main menu", getSkin());
+//        instructions.setFontScale(2.5f);
+//        tempY = tempY - 50;
+//        instructions.setPosition(280, tempY);
+//        stage.addActor(instructions);
 
     }
 

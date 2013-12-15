@@ -14,9 +14,9 @@ public class Profile implements Serializable {
 
     public Profile() {
         highScores = new ArrayList<Long>();
-        highScores.add(1000);
-        highScores.add(500);
-        highScores.add(100);
+        highScores.add(20000);
+        highScores.add(10000);
+        highScores.add(5000);
     }
 
     /**
