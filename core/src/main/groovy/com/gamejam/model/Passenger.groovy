@@ -13,13 +13,13 @@ import com.badlogic.gdx.math.Vector2
 class Passenger {
     long points
     ArrayList<Integer> combo
-    Texture texture
+    String textureName
     Vector2 position = new Vector2()
 
-    Passenger(long points, ArrayList<Integer> combo, Texture texture) {
+    Passenger(long points, ArrayList<Integer> combo, String textureName) {
         this.points = points
         this.combo = getPassengerCombo()
-        this.texture = texture
+        this.textureName = textureName
     }
 
     public ArrayList<Integer> getPassengerCombo() {

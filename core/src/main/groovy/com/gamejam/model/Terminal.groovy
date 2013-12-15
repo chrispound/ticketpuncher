@@ -1,6 +1,7 @@
 package com.gamejam.model
 
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.utils.Array
 
 
 /**
@@ -17,20 +18,22 @@ class Terminal {
     Terminal() {
         linesMap = [open : [new Line(0), new Line(1), new Line(2), new Line(3), new Line(4)], closed : []]
         bob = new Bob(2)
-        passenger = new Passenger(200, new ArrayList<Integer>(), new Texture("BobFriend.png"))
+        passenger = new Passenger(200, new ArrayList<Integer>(), "BobFriend.png")
     }
 
     def addPerson(Passenger passenger) {
         if (linesMap.closed.size() == 5) {
             //Handle the game being over???
             println("You Lose!")
-            return;
+            return false;
         }
 
         Random random = new Random()
         linesMap.open[random.nextInt(linesMap.open.size())].with {
             it.isFull() ? closeLine(it) : it.passengers.add(passenger)
         }
+
+        return true
     }
 
     def closeLine(Line line) {

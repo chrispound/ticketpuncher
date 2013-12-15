@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL10
+import com.badlogic.gdx.utils.TimeUtils
 import com.gamejam.controller.TerminalController
 import com.gamejam.game.GameJam
+import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
 import com.gamejam.view.TerminalRenderer
 
@@ -28,46 +30,40 @@ class GameScreen implements Screen, InputProcessor {
     TerminalController terminalController
     TerminalRenderer terminalRenderer
     Terminal terminal
-    def movementLocked = false
+
+    //These twotimes are in nanoseconds as its most accurate
+    long lastPassengerTime
+    long timeBetweenPassengers = 1000000000
 
     GameScreen(GameJam game) {
         this.game = game
         terminal = new Terminal()
         terminalController = new TerminalController(terminal)
         terminalRenderer = new TerminalRenderer(terminal)
+        spawnPassenger()
     }
-
-//    @Override
-//    void render(float delta) {
-//        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
-//        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
-//        camera.update()
-//        spriteBatch.setProjectionMatrix(camera.combined)
-//        spriteBatch.begin()
-//        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
-//        drawBob()
-//
-//        LinePosHelper.each { line ->
-//            (0..9).each { linePos ->
-//                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
-//                drawBobsFriend(line.getLinePosition(linePos))
-//            }
-//        }
-//        comboAnimatorController.drawCombo(batch)
-//        spriteBatch.end()
-//    }
-
 
     @Override
     void show() {
         Gdx.input.setInputProcessor(this)
     }
 
+    def spawnPassenger() {
+        //Somehow make a new Passenger, will use Chris' combo generator here...
+        Passenger passenger = new Passenger(100, [Input.Keys.CONTROL_LEFT], "BobFriend.png")
+        if (!terminalController.addPassenger(passenger))
+            game.setScreen(new GameOverScreen(game))
+        lastPassengerTime = TimeUtils.nanoTime()
+    }
 
     @Override
     void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+
+        //Logic to Spawn Passengers
+        if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
+            spawnPassenger()
 
         /**
          * TerminalController.update will be responsbile for the following

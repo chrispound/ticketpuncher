@@ -2,6 +2,7 @@ package com.gamejam.controller
 
 import com.gamejam.model.Bob
 import com.gamejam.model.LinePosHelper
+import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
 
 /**
@@ -48,22 +49,27 @@ class TerminalController {
                         passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
                         break;
                     case 1:
-                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        passenger.position = LinePosHelper.LINE_1.getLinePosition(idx)
                         break;
                     case 2:
-                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        passenger.position = LinePosHelper.LINE_2.getLinePosition(idx)
                         break;
                     case 3:
-                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        passenger.position = LinePosHelper.LINE_3.getLinePosition(idx)
                         break;
                     case 4:
-                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        passenger.position = LinePosHelper.LINE_4.getLinePosition(idx)
                         break;
                 }
             }
         }
 
 
+    }
+
+
+    def addPassenger(Passenger passenger) {
+        terminal.addPerson(passenger)
     }
 
 //arrows handle user direction

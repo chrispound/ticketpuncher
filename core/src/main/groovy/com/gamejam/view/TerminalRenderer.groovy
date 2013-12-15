@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.gamejam.controller.ComboAnimatorController
 import com.gamejam.model.Bob
+import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
 
 import static com.gamejam.model.PosHelper.*
+
 /**
  * Created by 
  * Matthew Fitzpatrick 
@@ -28,6 +30,7 @@ class TerminalRenderer {
     ComboAnimatorController comboAnimatorController
     BitmapFont scoreTitle;
     BitmapFont actualScore;
+    Map<String, Texture> passengerTextureMap = [:]
 
     TerminalRenderer(Terminal terminal) {
         this.terminal = terminal
@@ -44,7 +47,7 @@ class TerminalRenderer {
     def render() {
         batch.begin()
         batch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - bobWidthHeight).toFloat())
-        batch.draw(backgroundTexture, 0,0);
+        batch.draw(backgroundTexture, 0, 0);
         drawBob()
         drawPassengers()
         drawScoreBoard()
@@ -64,14 +67,21 @@ class TerminalRenderer {
     def drawPassengers() {
         (terminal.linesMap.open + terminal.linesMap.closed).each { line ->
             line.passengers.each { passenger ->
-                batch.draw(passenger.texture, passenger.position.x, passenger.position.y)
+                Texture texture = passengerTextureMap[passenger.textureName] ?: addToPassengerTextures(passenger)
+                batch.draw(texture, passenger.position.x, passenger.position.y)
             }
         }
+    }
+
+    Texture addToPassengerTextures(Passenger passenger) {
+        passengerTextureMap[passenger.textureName] = new Texture(Gdx.files.internal(passenger.textureName))
+        passengerTextureMap[passenger.textureName]
     }
 
     def drawBob() {
         batch.draw(bobTexture, bob.position.x, bob.position.y)
     }
+
     private void drawScoreBoard() {
         scoreTitle.draw(batch, "Score", new Float(940), new Float(750))
         actualScore.draw(batch, bob.getScore().toString(), new Float(940), new Float(725))
