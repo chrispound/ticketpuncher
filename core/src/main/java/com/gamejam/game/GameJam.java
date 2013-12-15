@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gamejam.screens.SplashScreen;
+import com.gamejam.utils.ProfileManager;
 
 import java.util.HashMap;
 
@@ -85,6 +86,7 @@ public class GameJam extends Game implements ApplicationListener {
      */
     private FPSLogger fpsLogger;
     private HashMap<Integer, Long> highScore;
+    private ProfileManager profileManager;
 
     public SplashScreen getSplashScreen() {
         return new SplashScreen(this);
@@ -102,13 +104,20 @@ public class GameJam extends Game implements ApplicationListener {
     public void loopMusic() {
         this.music.setLooping(true);
     }
+
+    public ProfileManager getProfileManager() {
+        return profileManager;
+    }
+
     @Override
     public void create() {
         Texture.setEnforcePotImages(false);
         //get high scores!.
         Gdx.app.log(TAG, "Creating Game");
         batch = new SpriteBatch();
-        setScreen(getSplashScreen());
+        setScreen(getSplashScreen());      // create the profile manager
+        profileManager = new ProfileManager();
+        profileManager.retrieveProfile();
     }
 
     @Override

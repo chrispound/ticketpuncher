@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
-import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.utils.TimeUtils
 import com.gamejam.controller.TerminalController
@@ -12,7 +11,6 @@ import com.gamejam.game.GameJam
 import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
 import com.gamejam.view.TerminalRenderer
-
 
 /**
  * Created by 
@@ -58,6 +56,8 @@ class GameScreen implements Screen, InputProcessor {
         }
         Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png", evilBob)
         if (!terminalController.addPassenger(passenger))
+        //check score
+
             game.setScreen(new GameOverScreen(game))
         lastPassengerTime = TimeUtils.nanoTime()
     }
