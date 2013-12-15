@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.gamejam.controller.ComboAnimatorController
 import com.gamejam.model.Bob
-import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Terminal
 
+import static com.gamejam.model.PosHelper.*
 /**
  * Created by 
  * Matthew Fitzpatrick 
@@ -43,17 +43,11 @@ class TerminalRenderer {
 
     def render() {
         batch.begin()
+        batch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - bobWidthHeight).toFloat())
         batch.draw(backgroundTexture, 0,0);
-        //batch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - bobWidthHeight).toFloat())
-        LinePosHelper.each { line ->
-            (0..9).each { linePos ->
-//                batch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
-//                drawBobsFriend(line.getLinePosition(linePos))
-            }
-        }
         drawBob()
+        drawPassengers()
         drawScoreBoard()
-//        drawLines()
         comboAnimatorController.drawCombo()
         comboAnimatorController.updateCombo()
         batch.end()
@@ -65,11 +59,17 @@ class TerminalRenderer {
         lineTexture = new Texture(Gdx.files.internal('templine.png'))
         deskTexture = new Texture(Gdx.files.internal('desk.png'))
         backgroundTexture = new Texture(Gdx.files.internal('gameJamBackground.png'))
-
     }
 
+    def drawPassengers() {
+        (terminal.linesMap.open + terminal.linesMap.closed).each { line ->
+            line.passengers.each { passenger ->
+                batch.draw(passenger.texture, passenger.position.x, passenger.position.y)
+            }
+        }
+    }
 
-    private void drawBob() {
+    def drawBob() {
         batch.draw(bobTexture, bob.position.x, bob.position.y)
     }
     private void drawScoreBoard() {
