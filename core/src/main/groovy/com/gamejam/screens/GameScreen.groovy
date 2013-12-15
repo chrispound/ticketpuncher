@@ -25,9 +25,6 @@ class GameScreen implements Screen, InputProcessor {
     TerminalRenderer terminalRenderer
     Terminal terminal
     Random random
-    //These twotimes are in nanoseconds as its most accurate
-    long lastPassengerTime
-    long timeBetweenPassengers = 2000000000
 
     GameScreen(GameJam game) {
         this.game = game
@@ -35,35 +32,16 @@ class GameScreen implements Screen, InputProcessor {
         terminal = new Terminal()
         terminalController = new TerminalController(terminal)
         terminalRenderer = new TerminalRenderer(terminal)
-        spawnPassenger()
+        terminalController.spawnPassenger()
     }
 
     @Override
     void show() {
         Gdx.input.setInputProcessor(this)
-
         game.stopMusic()
         game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3")))
         game.loopMusic();
         game.playMusic()
-    }
-
-    def spawnPassenger() {
-        //Somehow make a new Passenger, will use Chris' combo generator here...
-        int makeBob = random.nextInt(20 - 5) + 5
-        boolean evilBob = false
-        if (makeBob == 15) {
-            evilBob = true
-        }
-        int passengerNumber = random.nextInt(6 - 1) + 1
-        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "passenger$passengerNumber", evilBob)
-        if (!terminalController.addPassenger(passenger)) {
-            //game over
-            game.profileManager.retrieveProfile().notifyScore(terminal.bob.score)
-            game.profileManager.persist()
-            game.setScreen(new GameOverScreen(game))
-        }
-        lastPassengerTime = TimeUtils.nanoTime()
     }
 
     @Override
@@ -71,11 +49,7 @@ class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1)
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
 
-        //Logic to Spawn Passengers
-        if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
-            spawnPassenger()
-
-        terminalController.update()
+        if (!terminalController.update()) game.setScreen(new GameOverScreen(game))
         terminalRenderer.render()
     }
 
