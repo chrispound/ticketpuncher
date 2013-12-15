@@ -84,10 +84,6 @@ public abstract class ArcadeScreen implements Screen {
     }
 
     @Override
-    public void hide() {
-    }
-
-    @Override
     public void pause() {
     }
 
@@ -97,7 +93,15 @@ public abstract class ArcadeScreen implements Screen {
 
     @Override
     public void dispose() {
-        hide();
+        stage.dispose();
+        if (font != null) font.dispose();
+        if (batch != null) batch.dispose();
+        if (skin != null) skin.dispose();
+    }
+
+    @Override
+    public void hide() {
+        dispose();
     }
 
     @Override

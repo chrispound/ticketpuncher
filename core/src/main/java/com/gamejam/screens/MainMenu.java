@@ -3,7 +3,6 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
@@ -70,6 +69,11 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         pressToContinue.setPosition(325, 150);
         stage.addActor(pressToContinue);
 
+        Label goToHighScore = new Label("Press Player H to see high scores", getSkin());
+        goToHighScore.setFontScale(1.5f);
+        goToHighScore.setPosition(325, 100);
+        stage.addActor(goToHighScore);
+
         // button "start game"
 //        TextButton startGameButton = new TextButton( "Start game", getSkin());
 //        startGameButton.setPosition(300,430);
@@ -116,6 +120,10 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
 
         if (keycode == Input.Keys.ENTER || keycode == Input.Keys.NUM_1) {
             game.setScreen(new GameScreen(game));
+            this.hide();
+        } else if (keycode == Input.Keys.H) {
+            game.setScreen(new HighScores(game));
+            this.hide();
         }
         return true;
     }

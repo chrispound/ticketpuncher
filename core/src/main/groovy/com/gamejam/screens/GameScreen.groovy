@@ -37,6 +37,7 @@ class GameScreen implements Screen, InputProcessor {
         terminalRenderer = new TerminalRenderer(terminal)
         spawnPassenger()
     }
+
     @Override
     void show() {
         Gdx.input.setInputProcessor(this)
@@ -56,10 +57,12 @@ class GameScreen implements Screen, InputProcessor {
         }
         int passengerNumber = random.nextInt(6 - 1) + 1
         Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "passenger$passengerNumber", evilBob)
-        if (!terminalController.addPassenger(passenger))
-        //check score
-
+        if (!terminalController.addPassenger(passenger)) {
+            //game over
+            game.profileManager.retrieveProfile().notifyScore(terminal.bob.score)
+            game.profileManager.persist()
             game.setScreen(new GameOverScreen(game))
+        }
         lastPassengerTime = TimeUtils.nanoTime()
     }
 

@@ -10,29 +10,38 @@ import com.badlogic.gdx.utils.OrderedMap
 public class Profile implements Serializable {
     private int currentLevelId;
     private int credits;
-    private ArrayList<Integer> highScores;
+    private ArrayList<Long> highScores;
 
     public Profile() {
-        highScores = new ArrayList<Integer>();
+        highScores = new ArrayList<Long>();
+        highScores.add(1000);
+        highScores.add(500);
+        highScores.add(100);
     }
 
     /**
      * Retrieves the high scores for each level (Level-ID -> High score).
      */
-    public Map<Integer, Integer> getHighScores() {
+    public ArrayList<Long> getHighScores() {
         return highScores;
     }
 
     /**
      * Compare all high scores. insert and move the rest down.
      */
-    public boolean notifyScore(int score) {
+    public boolean notifyScore(Long score) {
         for (int f = 0; f < highScores.size(); f++) {
             if (score > highScores.get(f)) {
                 highScores.add(f, score)
-                highScores.remove(highScores.size() - 1)
+                if (highScores.size() > 10)
+                    highScores.remove(highScores.size() - 1)
                 return true
             }
+        }
+
+        //no new high score add new score in.
+        if (highScores.size() < 10) {
+            highScores.add(score)
         }
         return false;
     }
@@ -63,8 +72,8 @@ public class Profile implements Serializable {
 
         // libgdx handles the keys of JSON formatted HashMaps as Strings, but we
         // want it to be an integer instead (levelId)
-        ArrayList<Integer> highScores = json.readValue("highScores", ArrayList.class,
-                Integer.class, jsonData);
+        ArrayList<Long> highScores = json.readValue("highScores", ArrayList.class,
+                Long.class, jsonData);
         this.highScores = highScores
 
     }
