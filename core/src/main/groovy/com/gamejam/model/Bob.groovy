@@ -11,10 +11,14 @@ import com.badlogic.gdx.math.Vector2
 class Bob {
     Vector2 position;
     int currentLine;
+    int score;
+    int ticketsPunched;
 
     public Bob(int currentLine) {
         this.position = new Vector2();
         this.setCurrentLine(currentLine);
+        this.score = 0;
+        this.ticketsPunched = 0;
     }
 
     public void setCurrentLine(int newLine) {
@@ -42,7 +46,12 @@ class Bob {
                 break;
         }
     }
-
+    public void updateScore() {
+        this.score++;
+    }
+    public void updateTicketsPunched() {
+        this.ticketsPunched++;
+    }
     public int getCurrentLine() {
         return this.currentLine;
     }
@@ -55,4 +64,11 @@ class Bob {
         this.position = position;
     }
 
+    int getScore() {
+        return score
+    }
+
+    void setScore(int score) {
+        this.score = score
+    }
 }
