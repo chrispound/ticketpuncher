@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.gamejam.controller.ComboAnimatorController
 import com.gamejam.model.Bob
 import com.gamejam.model.Terminal
 
@@ -24,6 +25,7 @@ class TerminalRenderer {
     Texture deskTexture
     Texture backgroundTexture
     Bob bob
+    ComboAnimatorController comboAnimatorController
     BitmapFont scoreTitle;
     BitmapFont actualScore;
 
@@ -32,6 +34,11 @@ class TerminalRenderer {
         bob = terminal.bob
         batch = new SpriteBatch()
         loadTextures()
+        comboAnimatorController = new ComboAnimatorController(terminal, this)
+        scoreTitle = new BitmapFont();
+        actualScore = new BitmapFont();
+        actualScore.setColor(Color.CYAN)
+        scoreTitle.setColor(Color.CYAN)
     }
 
     def render() {
@@ -41,6 +48,8 @@ class TerminalRenderer {
         drawBob()
         drawPassengers()
         drawScoreBoard()
+        comboAnimatorController.drawCombo()
+        comboAnimatorController.updateCombo()
         batch.end()
     }
 
@@ -64,10 +73,6 @@ class TerminalRenderer {
         batch.draw(bobTexture, bob.position.x, bob.position.y)
     }
     private void drawScoreBoard() {
-        scoreTitle = new BitmapFont();
-        actualScore = new BitmapFont();
-        actualScore.setColor(Color.CYAN)
-        scoreTitle.setColor(Color.CYAN)
         scoreTitle.draw(batch, "Score", new Float(940), new Float(750))
         actualScore.draw(batch, bob.getScore().toString(), new Float(940), new Float(725))
     }

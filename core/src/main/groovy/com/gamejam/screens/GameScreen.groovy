@@ -127,7 +127,7 @@ class GameScreen implements Screen, InputProcessor {
                 terminalController.moveBobRight()
                 break;
             default:
-                terminalController.bobIsPunchingATicket(keycode)
+                terminalController.bob.combo.add(keycode)
                 terminalController.checkIfComboIsCorrect()
                 break;
         }

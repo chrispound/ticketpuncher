@@ -9,16 +9,17 @@ import com.badlogic.gdx.math.Vector2
  * at 4:04 PM
  */
 class Bob {
-    Vector2 position;
-    int currentLine;
-    int score;
-    int ticketsPunched;
+    Vector2 position
+    int currentLine
+    ArrayList<Integer> combo = new ArrayList<>()
+    int score
+    int ticketsPunched
 
     public Bob(int currentLine) {
-        this.position = new Vector2();
-        this.setCurrentLine(currentLine);
-        this.score = 0;
-        this.ticketsPunched = 0;
+        this.position = new Vector2()
+        this.setCurrentLine(currentLine)
+        this.score = 0
+        this.ticketsPunched = 0
     }
 
     public void setCurrentLine(int newLine) {
@@ -47,10 +48,10 @@ class Bob {
         }
     }
     public void updateScore() {
-        this.score++;
+        this.score++
     }
     public void updateTicketsPunched() {
-        this.ticketsPunched++;
+        this.ticketsPunched++
     }
     public int getCurrentLine() {
         return this.currentLine;
