@@ -115,8 +115,6 @@ class GameScreen implements Screen, InputProcessor {
 
     @Override
     boolean keyDown(int keycode) {
-        println("Unlocked Movement")
-        println("USER PRESSED: " + keycode)
         switch (keycode) {
             case Input.Keys.LEFT:
                 terminalController.moveBobLeft()
