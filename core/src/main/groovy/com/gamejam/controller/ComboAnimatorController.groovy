@@ -113,7 +113,11 @@ class ComboAnimatorController {
         int tempY = POS_Y_START
         for (int f = 0; f < terminal.currentPassenger.combo.size(); f++) {
             def btnTexture = getComboImageTexture(terminal.currentPassenger.combo.get(f))
-            TextureRegion btnRegion = new TextureRegion(btnTexture, 0, 0, 88, 45)
+            def btnRegion
+            if (btnTexture == killTexture)
+                btnRegion = btnTexture
+            else
+                btnRegion = new TextureRegion(btnTexture, 88, 45)
             renderer.batch.draw(btnRegion, POS_X, tempY)
             //UPDATE POS
             tempY = tempY - POSY_Y_MULTIPLIER
@@ -122,7 +126,6 @@ class ComboAnimatorController {
 
     static def getComboImageTexture(int key) {
         switch (key) {
-
             case Input.Keys.CONTROL_LEFT:
             case Input.Keys.Q:
                 return lCtrlTexture
