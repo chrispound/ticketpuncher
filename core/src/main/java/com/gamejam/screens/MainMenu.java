@@ -3,6 +3,7 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
@@ -32,10 +33,12 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     public static final float BUTTON_HEIGHT = 60f;
     public static final float BUTTON_SPACING = 10f;
     public Image gameLogo;
+    //Music music;
+    Music music;
 
-
-    public MainMenu(GameJam game) {
+    public MainMenu(GameJam game, Music music) {
         super(game);
+        this.music = music;
     }
 
     @Override
@@ -115,7 +118,9 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
 
-        if (keycode == Input.Keys.ENTER || keycode == Input.Keys.NUM_1) game.setScreen(new GameScreen(game));
+        if (keycode == Input.Keys.ENTER || keycode == Input.Keys.NUM_1) {
+            game.setScreen(new GameScreen(game, music));
+        }
         return true;
     }
 

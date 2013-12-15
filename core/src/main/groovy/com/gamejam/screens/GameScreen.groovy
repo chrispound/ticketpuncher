@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.GL10
 import com.badlogic.gdx.utils.TimeUtils
 import com.gamejam.controller.TerminalController
@@ -26,23 +27,28 @@ class GameScreen implements Screen, InputProcessor {
     TerminalRenderer terminalRenderer
     Terminal terminal
     Random random
-
     //These twotimes are in nanoseconds as its most accurate
     long lastPassengerTime
     long timeBetweenPassengers = 1000000000
+    Music music
 
-    GameScreen(GameJam game) {
+    GameScreen(GameJam game, Music music) {
         this.game = game
         random = new Random()
         terminal = new Terminal()
         terminalController = new TerminalController(terminal)
         terminalRenderer = new TerminalRenderer(terminal)
         spawnPassenger()
+        this.music = music
     }
-
     @Override
     void show() {
         Gdx.input.setInputProcessor(this)
+
+        music.stop()
+        music = Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3"))
+        music.setLooping(true)
+        music.play()
     }
 
     def spawnPassenger() {
@@ -54,7 +60,7 @@ class GameScreen implements Screen, InputProcessor {
         }
         Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png", evilBob)
         if (!terminalController.addPassenger(passenger))
-            game.setScreen(new GameOverScreen(game))
+            game.setScreen(new GameOverScreen(game, music))
         lastPassengerTime = TimeUtils.nanoTime()
     }
 

@@ -3,6 +3,7 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,14 +17,25 @@ import com.gamejam.game.GameJam;
  * at 8:10 PM
  */
 public class GameOverScreen extends ArcadeScreen implements InputProcessor {
-    protected GameOverScreen(GameJam game) {
-        super(game);
-    }
+
     private Image gameOver;
-      //init commit
+    Music music;
+
+    public GameOverScreen(GameJam game, Music music) {
+        super(game);
+        this.music = music;
+    }
+     //init commit
     @Override
     public void show() {
         super.show();
+
+        music.stop();
+        music = Gdx.audio.newMusic(Gdx.files.internal("AustinPowers.mp3"));
+        music.setLooping(true);
+        music.play();
+
+
         //do cool magic scene2d here
         gameOver = new Image(new Texture("gameOver.png"));
         gameOver.setPosition(275, 200);
@@ -70,10 +82,10 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
         switch (keycode) {
             case Input.Keys.ENTER:
             case Input.Keys.SPACE:
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game, music));
                 break;
             default:
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenu(game, music));
                 break;
         }
         return true;
