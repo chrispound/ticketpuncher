@@ -70,6 +70,11 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
         pressToContinue.setPosition(325, 150);
         stage.addActor(pressToContinue);
 
+        Label howTo = new Label("Press 2 for game instructions", getSkin());
+        howTo.setFontScale(1.5f);
+        howTo.setPosition(325, 100);
+        stage.addActor(howTo);
+
         // button "start game"
 //        TextButton startGameButton = new TextButton( "Start game", getSkin());
 //        startGameButton.setPosition(300,430);
@@ -113,9 +118,10 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-
         if (keycode == Input.Keys.ENTER || keycode == Input.Keys.NUM_1) {
             game.setScreen(new GameScreen(game));
+        } else if(keycode == Input.Keys.NUM_2) {
+            game.setScreen(new HowToPlayScreen(game));
         }
         return true;
     }
