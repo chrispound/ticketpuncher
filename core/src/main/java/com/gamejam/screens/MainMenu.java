@@ -3,7 +3,6 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
@@ -67,7 +66,7 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
 
         Label pressToContinue = new Label("Press Player 1 Start To Continue", getSkin());
         pressToContinue.setFontScale(1.5f);
-        pressToContinue.setPosition(325, 150);
+        pressToContinue.setPosition(325, 200);
         stage.addActor(pressToContinue);
 
         Label howTo = new Label("Press 2 for game instructions", getSkin());
@@ -77,31 +76,9 @@ public class MainMenu extends ArcadeScreen implements InputProcessor {
 
         Label goToHighScore = new Label("Press Player H to see high scores", getSkin());
         goToHighScore.setFontScale(1.5f);
-        goToHighScore.setPosition(325, 100);
+        goToHighScore.setPosition(325, 150);
         stage.addActor(goToHighScore);
 
-        // button "start game"
-//        TextButton startGameButton = new TextButton( "Start game", getSkin());
-//        startGameButton.setPosition(300,430);
-//        startGameButton.setWidth(BUTTON_WIDTH);
-//        startGameButton.setHeight(BUTTON_HEIGHT);
-//        stage.addActor(startGameButton);
-
-//        // button "options"
-//        TextButton optionsButton = new TextButton( "Options", getSkin() );
-//        optionsButton.x = buttonX;
-//        optionsButton.y = ( currentY -= BUTTON_HEIGHT + BUTTON_SPACING );
-//        optionsButton.width = BUTTON_WIDTH;
-//        optionsButton.height = BUTTON_HEIGHT;
-//        stage.addActor( optionsButton );
-//
-//        // button "hall of fame"
-//        TextButton hallOfFameButton = new TextButton( "Hall of Fame", getSkin() );
-//        hallOfFameButton.x = buttonX;
-//        hallOfFameButton.y = ( currentY -= BUTTON_HEIGHT + BUTTON_SPACING );
-//        hallOfFameButton.width = BUTTON_WIDTH;
-//        hallOfFameButton.height = BUTTON_HEIGHT;
-//        stage.addActor( hallOfFameButton );
     }
 
     @Override
