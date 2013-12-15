@@ -15,8 +15,7 @@ class Terminal {
         random = new Random()
         linesMap = ['0': new Line(0), '1' : new Line(1), '2' : new Line(2), '3' : new Line(3), '4' : new Line(4)]
         bob = new Bob(2)
-        currentPassenger = getCurrentPassenger()
-//        currentPassenger = new Passenger(random.nextInt(8 - 3) + 3, "BobFriend.png")
+        updateCurrentPassenger()
     }
 
     def addPerson(Passenger passenger) {
@@ -33,8 +32,8 @@ class Terminal {
         return true
     }
 
-    def getCurrentPassenger() {
+    def updateCurrentPassenger() {
         def currentLine = linesMap[bob.currentLine.toString()]
-        return currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
+        currentPassenger =  currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
     }
 }

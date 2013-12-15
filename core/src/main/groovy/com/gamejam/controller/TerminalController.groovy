@@ -19,12 +19,10 @@ class TerminalController {
     Terminal terminal
     def movementProcessed = true
 
-
     TerminalController(Terminal terminal) {
         this.terminal = terminal
         this.bob = terminal.bob
     }
-
 
     def update() {
 
@@ -64,9 +62,8 @@ class TerminalController {
             }
         }
 
-
+        terminal.updateCurrentPassenger()
     }
-
 
     def addPassenger(Passenger passenger) {
         terminal.addPerson(passenger)
@@ -118,13 +115,16 @@ class TerminalController {
                     System.out.println("COMBO COMPLETE: Give Bob Points");
                     this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
-                    terminal.currentPassenger = new Passenger(terminal.random.nextInt(8 - 3) + 3, "bob.png")
+                    popCurrentPassenger()
                 }
             }
         }
     }
 
-    public void bobIsPunchingATicket(int key) {
-        this.terminal.bob.combo.add(key)
+    def popCurrentPassenger() {
+        def currentLine = terminal.bob.currentLine
+        terminal.linesMap[currentLine.toString()].passengers.remove(0)
     }
+
+
 }
