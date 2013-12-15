@@ -23,9 +23,15 @@ class TerminalController {
     long timeBetweenPassengers = 2.0e+9
     long increaseSpawnRateTime = 0.25e+9
     long gameStartTime
+
     def everyXTicketsAddButton = 5
     def everyXTicketsIncreaseSpawnRate = 30
     def everyXTicketsIncreaseComboSize = 5
+
+    def addButtonTrigger = everyXTicketsAddButton
+    def spawnRateTrigger = everyXTicketsIncreaseSpawnRate
+    def comboSizeTrigger = everyXTicketsIncreaseComboSize
+
     Random random
     def minCombos = 1
     def maxCombos = 4
@@ -42,16 +48,22 @@ class TerminalController {
         def gameOngoing = true
 
         //Start Difficulty Logic
-        if (terminal.bob.ticketsPunched / everyXTicketsAddButton >= 1) {
+        if (terminal.bob.ticketsPunched / addButtonTrigger >= 1) {
             Passenger.increasePossibleButtons()
-            everyXTicketsAddButton += everyXTicketsAddButton
+            addButtonTrigger += everyXTicketsAddButton
         }
 
-        if (terminal.bob.ticketsPunched / everyXTicketsIncreaseComboSize >= 1) {
+        if (terminal.bob.ticketsPunched / comboSizeTrigger >= 1) {
             increaseComboWindow()
-            everyXTicketsIncreaseComboSize += everyXTicketsIncreaseComboSize
+            comboSizeTrigger += everyXTicketsIncreaseComboSize
         }
 
+        if (terminal.bob.ticketsPunched / spawnRateTrigger >= 1 && timeBetweenPassengers > 0.75e9) {
+            timeBetweenPassengers -= increaseSpawnRateTime
+            spawnRateTrigger += everyXTicketsIncreaseSpawnRate
+            Passenger.BASE_POINTS += 100
+            println "Increased Spawn Rate To: $timeBetweenPassengers"
+        }
         //End Difficulty Logic
 
         //Logic to Spawn Passengers
