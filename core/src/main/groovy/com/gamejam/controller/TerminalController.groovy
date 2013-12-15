@@ -39,6 +39,11 @@ class TerminalController {
 
     def update() {
         def gameOngoing = true
+        if (terminal.bob.ticketsPunched / everyXTicketsAddButton >= 1){
+            Passenger.increasePossibleButtons()
+            everyXTicketsAddButton += 5
+        }
+
         //Logic to Spawn Passengers
         if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
             gameOngoing = spawnPassenger()
