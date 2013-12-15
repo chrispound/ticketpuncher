@@ -18,10 +18,15 @@ class Terminal {
         updateCurrentPassenger()
     }
 
+    /**
+     * Method to add a passenger to a line's passenger list.
+     * A line is closed when the 11th passenger is attempted to be added
+     *
+     * @param passenger the passenger to add, dur
+     * @returns true if the game should continue, false if the game is over because there are no open lines
+     */
     def addPerson(Passenger passenger) {
         if (linesMap.values().findAll{it.closed}.size() == 5) {
-            //Handle the game being over???
-            println("You Lose!")
             return false;
         }
 
