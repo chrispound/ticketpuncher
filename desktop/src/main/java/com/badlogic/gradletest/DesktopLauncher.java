@@ -1,6 +1,7 @@
 
 package com.badlogic.gradletest;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.gamejam.game.GameJam;
@@ -15,6 +16,7 @@ public class DesktopLauncher {
         config.width = 1024;
         config.height = 800;
         config.resizable = false;
-		new LwjglApplication(new GameJam(), config);
+        config.addIcon("ic_icon.png", Files.FileType.Internal);
+        new LwjglApplication(new GameJam(), config);
 	}
 }
