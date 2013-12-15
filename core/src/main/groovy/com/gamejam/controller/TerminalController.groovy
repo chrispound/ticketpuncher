@@ -1,6 +1,7 @@
 package com.gamejam.controller
 
 import com.gamejam.model.Bob
+import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Terminal
 
 /**
@@ -27,6 +28,8 @@ class TerminalController {
 
 
     def update() {
+
+        //Bob Stuff...
         if (input.left && !movementProcessed)
             if (bob.currentLine != END_OF_LEFT) {
                 bob.currentLine -= 1
@@ -38,6 +41,31 @@ class TerminalController {
                 bob.currentLine += 1
                 movementProcessed = true
             }
+
+        //Update all Passengers in Open Lines
+        terminal.linesMap.open.each { line ->
+            line.passengers.eachWithIndex { passenger, idx ->
+                switch (line.lineNumber) {
+                    case 0:
+                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        break;
+                    case 1:
+                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        break;
+                    case 2:
+                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        break;
+                    case 3:
+                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        break;
+                    case 4:
+                        passenger.position = LinePosHelper.LINE_0.getLinePosition(idx)
+                        break;
+                }
+            }
+        }
+
+
     }
 
 //arrows handle user direction

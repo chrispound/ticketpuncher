@@ -8,7 +8,7 @@ package com.gamejam.model
  */
 class Line {
     def lineNumber
-    List<Passenger> people = []
+    List<Passenger> passengers = []
     def maxLineSize = 10
 
     Line(lineNumber) {
@@ -16,7 +16,7 @@ class Line {
     }
 
     def isFull() {
-        people.size() == maxLineSize
+        passengers.size() == maxLineSize
     }
 
     @Override

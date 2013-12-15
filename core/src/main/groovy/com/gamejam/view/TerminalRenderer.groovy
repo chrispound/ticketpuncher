@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.gamejam.model.Bob
-import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Terminal
+
 import static com.gamejam.model.PosHelper.*
+
 /**
  * Created by 
  * Matthew Fitzpatrick 
@@ -33,14 +34,9 @@ class TerminalRenderer {
         batch.begin()
 
         batch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - bobWidthHeight).toFloat())
-        LinePosHelper.each { line ->
-            (0..9).each { linePos ->
-                batch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
-//                drawBobsFriend(line.getLinePosition(linePos))
-            }
-        }
         drawBob()
-//        drawLines()
+        drawPassengers()
+
         batch.end()
     }
 
@@ -52,8 +48,15 @@ class TerminalRenderer {
 
     }
 
+    def drawPassengers() {
+        (terminal.linesMap.open + terminal.linesMap.closed).each { line ->
+            line.passengers.each { passenger ->
+                batch.draw(passenger.texture, passenger.position.x, passenger.position.y)
+            }
+        }
+    }
 
-    private void drawBob() {
+    def drawBob() {
         batch.draw(bobTexture, bob.position.x, bob.position.y)
     }
 }

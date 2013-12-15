@@ -2,6 +2,7 @@ package com.gamejam.model
 
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Vector2
 
 /**
  * Created by 
@@ -12,12 +13,13 @@ import com.badlogic.gdx.graphics.Texture
 class Passenger {
     long points
     ArrayList<Integer> combo
-    Texture passengerTexture
+    Texture texture
+    Vector2 position = new Vector2()
 
-    Passenger(long points, ArrayList<Integer> combo, Texture passengerTexture) {
+    Passenger(long points, ArrayList<Integer> combo, Texture texture) {
         this.points = points
         this.combo = getPassengerCombo()
-        this.passengerTexture = passengerTexture
+        this.texture = texture
     }
 
     public ArrayList<Integer> getPassengerCombo() {

@@ -24,7 +24,7 @@ class Terminal {
 
         Random random = new Random()
         linesMap.open[random.nextInt(linesMap.open.size())].with {
-            it.isFull() ? closeLine(it) : it.people.add(passenger)
+            it.isFull() ? closeLine(it) : it.passengers.add(passenger)
         }
     }
 
