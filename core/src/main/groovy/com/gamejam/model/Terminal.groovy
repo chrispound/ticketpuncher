@@ -39,7 +39,7 @@ class Terminal {
     }
 
     def updateCurrentPassenger() {
-        def currentLine = linesMap[bob.currentLine.toString()]
+        def currentLine = linesMap[bob.currentLineNumber.toString()]
         currentPassenger =  currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
     }
 }

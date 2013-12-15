@@ -51,6 +51,7 @@ class TerminalRenderer {
         drawBob()
         drawPassengers()
         drawScoreBoard()
+        //TODO: There is now logic in our renderer, renderer should only draw things, not update models
         comboAnimatorController.drawCombo()
         comboAnimatorController.updateCombo()
         batch.end()

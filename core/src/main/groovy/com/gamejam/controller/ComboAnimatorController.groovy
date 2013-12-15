@@ -33,13 +33,12 @@ class ComboAnimatorController {
     /**
      * Error Btn Textures
      */
-    static Texture lCtrlTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_lctrl.png")))
-    static Texture lShiftTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_lshift.png")))
-    static Texture enterTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_enter.png")))
-    static Texture zTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_z.png")))
-    static Texture xTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_x.png")))
-    static Texture spaceTextureWrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_space.png")))
-    static Texture allWrong = new Texture(Gdx.files.internal("buttons/btn_wrong.png"))
+//    static Texture lCtrlTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_lctrl.png")))
+//    static Texture lShiftTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_lshift.png")))
+//    static Texture lEnterTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_enter.png")))
+//    static Texture zTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_z.png")))
+//    static Texture xTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_x.png")))
+//    static Texture spaceTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_space.png")))
 
     /**
      * Good Btn Tetures
@@ -83,14 +82,12 @@ class ComboAnimatorController {
             for (int f = 0; f < bobCombo.size(); f++) {
                 if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                     terminal.bob.combo = new ArrayList<Integer>();
-                    System.out.println("Combo Was Wrong! We Were So WRONG");
                     updatedTexture = allWrong
                     TextureRegion btnRegion = new TextureRegion(updatedTexture, 88, 45)
                     renderer.batch.draw(btnRegion, POS_X, (POS_Y_START - POSY_Y_MULTIPLIER * f))
                     //kick off btn update
                     break;
                 } else {
-                    System.out.println("Combo was Good!");
                     for (int i = 0; i < bobCombo.size(); i++) {
                         if (terminal.currentPassenger.combo.size() >= i) {
                             updatedTexture = getGoodComboImageTexture(terminal.currentPassenger.combo.get(i))
@@ -101,7 +98,6 @@ class ComboAnimatorController {
                     if (f == (passengerCombo.size() - 1)) {
                         bobCombo = new ArrayList<Integer>();
                         //kick off btn update
-                        System.out.println("COMBO COMPLETE: Give Bob Points");
                     }
                 }
             }
@@ -172,30 +168,24 @@ class ComboAnimatorController {
         }
     }
 
-    static Texture getErrorComboImageTexture(int key) {
-        switch (key) {
-
-            case Input.Keys.CONTROL_LEFT:
-            case Input.Keys.Q:
-                return lCtrlTextureWrong
-            case Input.Keys.SHIFT_LEFT:
-            case Input.Keys.A:
-                return lShiftTextureWrong
-            case Input.Keys.ENTER:
-            case Input.Keys.W:
-                return enterTextureWrong
-            case Input.Keys.Z:
-            case Input.Keys.S:
-                return zTextureWrong
-            case Input.Keys.X:
-            case Input.Keys.D:
-                return xTextureWrong
-            case Input.Keys.SPACE:
-            case Input.Keys.E:
-                return spaceTextureWrong
-            default:
-                return null
-        }
-    }
+//    static Texture getErrorComboImageTexture(int key) {
+//        switch (key) {
+//
+//            case Input.Keys.CONTROL_LEFT:
+//                return lCtrlTexturewrong
+//            case Input.Keys.SHIFT_LEFT:
+//                return lShiftTexturewrong
+//            case Input.Keys.ENTER:
+//                return lEnterTexturewrong
+//            case Input.Keys.Z:
+//                return zTexturewrong
+//            case Input.Keys.X:
+//                return xTexturewrong
+//            case Input.Keys.SPACE:
+//                return spaceTexturewrong
+//            default:
+//                return null
+//        }
+//    }
 
 }

@@ -21,11 +21,6 @@ import com.gamejam.view.TerminalRenderer
  */
 class GameScreen implements Screen, InputProcessor {
 
-    //Desk is 800x64
-    //Bob is 64x64
-    //Customers are 64x64
-    //Lines are 704(11)x64
-
     final GameJam game
     TerminalController terminalController
     TerminalRenderer terminalRenderer
@@ -67,56 +62,12 @@ class GameScreen implements Screen, InputProcessor {
         if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
             spawnPassenger()
 
-        /**
-         * TerminalController.update will be responsbile for the following
-         * - Add A Person to the Lines
-         * - Update Bob's Position
-         * - Update Line's Positions
-         * - ???x
-         */
         terminalController.update()
-        /**
-         * TerminalRenderer.render will be responsible for the following
-         * - Draw Bob
-         * - Draw BobFriends
-         * - Draw Score Points after a ticket punch?
-         * - Draw Combo's?
-         * -
-         */
         terminalRenderer.render()
-
-//        spriteBatch.begin()
-//        spriteBatch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - deskHeight).toFloat())
-//        drawBob()
-//
-//        LinePosHelper.each { line ->
-//            (0..9).each { linePos ->
-//                spriteBatch.draw(lineTexture, line.getLinePosition(linePos).x, line.getLinePosition(linePos).y)
-//                drawBobsFriend(line.getLinePosition(linePos))
-//            }
-//        }
-//        spriteBatch.end()
     }
-
-//    private void drawBobsFriend(Vector2 position) {
-//        Vector2 bobsFriendPosition = new Vector2()
-//        int posY = 0
-//        TextureRegion bobsArea = new TextureRegion(bobFriendImgLocation, 64, 64)
-//        switch (bobsFriend.getCurrentRow()) {
-//            case 0:
-//                bobsFriendPosition.set(112, 0)
-//                break
-//            case 1:
-//                bobsFriendPosition.set(112, 1)
-//
-//        }
-//        spriteBatch.draw(bobsArea, position.x, position.y)
-//    }
 
     @Override
     boolean keyDown(int keycode) {
-        println("Unlocked Movement")
-        println("USER PRESSED: " + keycode)
         switch (keycode) {
             case Input.Keys.LEFT:
                 terminalController.moveBobLeft()

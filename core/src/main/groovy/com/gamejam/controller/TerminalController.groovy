@@ -28,14 +28,14 @@ class TerminalController {
 
         //Bob Stuff...
         if (input.left && !movementProcessed)
-            if (bob.currentLine != END_OF_LEFT) {
-                bob.currentLine -= 1
+            if (bob.currentLineNumber != END_OF_LEFT) {
+                bob.currentLineNumber -= 1
                 movementProcessed = true
             }
 
         if (input.right && !movementProcessed)
-            if (bob.currentLine != END_OF_RIGHT) {
-                bob.currentLine += 1
+            if (bob.currentLineNumber != END_OF_RIGHT) {
+                bob.currentLineNumber += 1
                 movementProcessed = true
             }
 
@@ -103,15 +103,13 @@ class TerminalController {
         //check currentPassenger ticket
         ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         if (passengerCombo.size() > 0) {
-
             for (int f = 0; f < terminal.bob.combo.size(); f++) {
-                System.out.println("Combo was Good!")
-                if (f == (passengerCombo.size() - 1)) {
-                    terminal.bob.combo = new ArrayList<Integer>();
-                    System.out.println("COMBO COMPLETE: Give Bob Points");
-                    this.terminal.bob.updateScore(terminal.currentPassenger.points);
-                    this.terminal.bob.updateTicketsPunched();
-                    popCurrentPassenger()
+                    if (f == (passengerCombo.size() - 1)) {
+                        terminal.bob.combo = new ArrayList<Integer>();
+                        this.terminal.bob.updateScore(terminal.currentPassenger.points);
+                        this.terminal.bob.updateTicketsPunched();
+                        popCurrentPassenger()
+                    }
                 }
 
             }
