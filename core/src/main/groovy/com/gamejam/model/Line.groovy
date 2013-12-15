@@ -10,6 +10,7 @@ class Line {
     def lineNumber
     List<Passenger> passengers = []
     def maxLineSize = 10
+    def closed = false
 
     Line(lineNumber) {
         this.lineNumber = lineNumber

@@ -47,29 +47,10 @@ class Bob {
                 break;
         }
     }
-    public void updateScore() {
-        this.score++
+    public void updateScore(long passengerPoints) {
+        this.score += passengerPoints
     }
     public void updateTicketsPunched() {
         this.ticketsPunched++
-    }
-    public int getCurrentLine() {
-        return this.currentLine;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-    int getScore() {
-        return score
-    }
-
-    void setScore(int score) {
-        this.score = score
     }
 }

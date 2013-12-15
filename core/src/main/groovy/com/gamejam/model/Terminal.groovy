@@ -6,35 +6,35 @@ package com.gamejam.model
  * at 12:03 AM
  */
 class Terminal {
-    Map<String, List<Line>> linesMap
+    Map<String, Line> linesMap
     Bob bob
-    Passenger passenger
+    Passenger currentPassenger
     Random random
 
     Terminal() {
         random = new Random()
-        linesMap = [open : [new Line(0), new Line(1), new Line(2), new Line(3), new Line(4)], closed : []]
+        linesMap = ['0': new Line(0), '1' : new Line(1), '2' : new Line(2), '3' : new Line(3), '4' : new Line(4)]
         bob = new Bob(2)
-        passenger = new Passenger(random.nextInt(8 - 3) + 3, "BobFriend.png")
+        currentPassenger = getCurrentPassenger()
+//        currentPassenger = new Passenger(random.nextInt(8 - 3) + 3, "BobFriend.png")
     }
 
     def addPerson(Passenger passenger) {
-        if (linesMap.closed.size() == 5) {
+        if (linesMap.values().findAll{it.closed}.size() == 5) {
             //Handle the game being over???
             println("You Lose!")
             return false;
         }
 
-        Random random = new Random()
-        linesMap.open[random.nextInt(linesMap.open.size())].with {
-            it.isFull() ? closeLine(it) : it.passengers.add(passenger)
+        linesMap[random.nextInt(linesMap.size()).toString()].with {
+            it.isFull() ? it.closed = true : it.passengers.add(passenger)
         }
 
         return true
     }
 
-    def closeLine(Line line) {
-        linesMap.open.remove(line)
-        linesMap.closed.add(line)
+    def getCurrentPassenger() {
+        def currentLine = linesMap[bob.currentLine.toString()]
+        return currentLine.passengers ? currentLine.passengers[0] : new Passenger(0, [], "this is not an image")
     }
 }

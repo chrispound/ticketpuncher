@@ -17,6 +17,7 @@ class Passenger {
     int delta
     int MIN = 0
     int MAX = 6
+    Random random = new Random()
 
     Passenger(long points, ArrayList<Integer> combo, String textureName) {
         this.points = points
@@ -27,8 +28,8 @@ class Passenger {
     Passenger(int delta, String textureName) {
         this.points = delta * 2
         this.delta = delta
-        generatePassengerComb()
         this.textureName = textureName
+        generatePassengerComb()
     }
 
     def void generatePassengerComb() {
@@ -40,7 +41,6 @@ class Passenger {
         def possibleKeys = [Input.Keys.Q, Input.Keys.W, Input.Keys.E,
                 Input.Keys.A, Input.Keys.S, Input.Keys.D]
         println "random number is: " + delta
-        Random random = new Random()
         //generate size. generate
         for (int f = 0; f < delta; f++) {
                  //i need to generate a random number here just

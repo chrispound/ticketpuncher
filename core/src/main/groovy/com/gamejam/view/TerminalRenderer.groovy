@@ -65,7 +65,7 @@ class TerminalRenderer {
     }
 
     def drawPassengers() {
-        (terminal.linesMap.open + terminal.linesMap.closed).each { line ->
+        terminal.linesMap.values().each { line ->
             line.passengers.each { passenger ->
                 Texture texture = passengerTextureMap[passenger.textureName] ?: addToPassengerTextures(passenger)
                 batch.draw(texture, passenger.position.x, passenger.position.y)

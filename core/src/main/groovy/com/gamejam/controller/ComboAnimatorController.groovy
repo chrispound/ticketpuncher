@@ -70,20 +70,20 @@ class ComboAnimatorController {
     /**
      * check which sequence in the combo was pressed
      * check if it was passed
-     * get the key image from our passenger
+     * get the key image from our currentPassenger
      * ?????
      * profit
      */
     def updateCombo() {
         ArrayList<Integer> bobCombo = terminal.bob.combo
-        ArrayList<Integer> passengerCombo = terminal.passenger.combo
+        ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         int mostRecentComboPosition = terminal.bob.combo.size() - 1
         Texture updatedTexture
         for (int f = 0; f < bobCombo.size(); f++) {
             if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                 terminal.bob.combo = new ArrayList<Integer>();
                 System.out.println("Combo Was Wrong! We Were So WRONG");
-//                updatedTexture = getErrorComboImageTexture(terminal.passenger.combo.get(mostRecentComboPosition))
+//                updatedTexture = getErrorComboImageTexture(terminal.currentPassenger.combo.get(mostRecentComboPosition))
 //                TextureRegion btnRegion = new TextureRegion(updatedTexture, 88, 45)
 //                renderer.batch.draw(btnRegion, POS_X, (POS_Y_START - POSY_Y_MULTIPLIER * mostRecentComboPosition))
                 //kick off btn update
@@ -91,7 +91,7 @@ class ComboAnimatorController {
             } else {
                 System.out.println("Combo was Good!");
                 for (int i = 0; i < bobCombo.size(); i++) {
-                    updatedTexture = getGoodComboImageTexture(terminal.passenger.combo.get(i))
+                    updatedTexture = getGoodComboImageTexture(terminal.currentPassenger.combo.get(i))
                     TextureRegion btnRegion = new TextureRegion(updatedTexture, 88, 45)
                     renderer.batch.draw(btnRegion, POS_X, (POS_Y_START - POSY_Y_MULTIPLIER * i + 1))
                 }
@@ -107,8 +107,8 @@ class ComboAnimatorController {
     def drawCombo() {
 //update combo as user does stuff.
         int tempY = POS_Y_START
-        for (int f = 0; f < terminal.passenger.combo.size(); f++) {
-            Texture btnTexture = getComboImageTexture(terminal.passenger.combo.get(f))
+        for (int f = 0; f < terminal.currentPassenger.combo.size(); f++) {
+            Texture btnTexture = getComboImageTexture(terminal.currentPassenger.combo.get(f))
             TextureRegion btnRegion = new TextureRegion(btnTexture, 88, 45)
             renderer.batch.draw(btnRegion, POS_X, tempY)
             //UPDATE POS

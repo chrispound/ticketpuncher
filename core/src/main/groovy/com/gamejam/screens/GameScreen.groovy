@@ -30,6 +30,7 @@ class GameScreen implements Screen, InputProcessor {
     TerminalController terminalController
     TerminalRenderer terminalRenderer
     Terminal terminal
+    Random random
 
     //These twotimes are in nanoseconds as its most accurate
     long lastPassengerTime
@@ -37,6 +38,7 @@ class GameScreen implements Screen, InputProcessor {
 
     GameScreen(GameJam game) {
         this.game = game
+        random = new Random()
         terminal = new Terminal()
         terminalController = new TerminalController(terminal)
         terminalRenderer = new TerminalRenderer(terminal)
@@ -50,7 +52,7 @@ class GameScreen implements Screen, InputProcessor {
 
     def spawnPassenger() {
         //Somehow make a new Passenger, will use Chris' combo generator here...
-        Passenger passenger = new Passenger(100, [Input.Keys.CONTROL_LEFT], "BobFriend.png")
+        Passenger passenger = new Passenger(random.nextInt(8-3) + 3, "BobFriend.png")
         if (!terminalController.addPassenger(passenger))
             game.setScreen(new GameOverScreen(game))
         lastPassengerTime = TimeUtils.nanoTime()

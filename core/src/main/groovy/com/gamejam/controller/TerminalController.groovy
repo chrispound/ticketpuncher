@@ -42,7 +42,7 @@ class TerminalController {
             }
 
         //Update all Passengers in Open Lines
-        terminal.linesMap.open.each { line ->
+        terminal.linesMap.values().each { line ->
             line.passengers.eachWithIndex { passenger, idx ->
                 switch (line.lineNumber) {
                     case 0:
@@ -103,8 +103,8 @@ class TerminalController {
     }
 
     public void checkIfComboIsCorrect() {
-        //check passenger ticket
-        ArrayList<Integer> passengerCombo = terminal.passenger.combo
+        //check currentPassenger ticket
+        ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         for (int f = 0; f < terminal.bob.combo.size(); f++) {
             if (!terminal.bob.combo.get(f).equals(passengerCombo.get(f))) {
                 terminal.bob.combo = new ArrayList<Integer>()
@@ -116,9 +116,9 @@ class TerminalController {
                 if (f == (passengerCombo.size() - 1)) {
                     terminal.bob.combo = new ArrayList<Integer>();
                     System.out.println("COMBO COMPLETE: Give Bob Points");
-                    //this.terminal.bob.updateScore(terminal.linesMap);
+                    this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
-                    terminal.passenger = new Passenger(terminal.random.nextInt(8 - 3) + 3, "bob.png")
+                    terminal.currentPassenger = new Passenger(terminal.random.nextInt(8 - 3) + 3, "bob.png")
                 }
             }
         }
