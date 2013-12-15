@@ -109,7 +109,9 @@ class TerminalController {
                     this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
                     popCurrentPassenger()
-                } else if (terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
+                } else if (terminal.bob.combo.size() - 1 >= f &&
+                        terminal.currentPassenger.combo.size() - 1 >= f &&
+                        terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
                     if (f == (passengerCombo.size() - 1)) {
                         if (terminal.currentPassenger.evilBob) {
                             terminal.currentPassenger.points = 30
