@@ -39,7 +39,7 @@ class ComboAnimatorController {
 //    static Texture zTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_z.png")))
 //    static Texture xTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_x.png")))
 //    static Texture spaceTexturewrong = new Texture(Gdx.files.internal(("buttons/btn_wrong_space.png")))
-
+    static Texture allWrong = new Texture(Gdx.files.internal("buttons/btn_wrong.png"))
     /**
      * Good Btn Tetures
      */
