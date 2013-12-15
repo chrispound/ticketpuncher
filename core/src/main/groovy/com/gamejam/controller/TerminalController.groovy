@@ -15,8 +15,6 @@ class TerminalController {
     def input = [left: false, right: false]
     Bob bob
     Terminal terminal
-    ArrayList<Integer> bobCombo = new ArrayList<Integer>()
-    ArrayList<Integer> passengerCombo
     def movementProcessed = true
 
 
@@ -25,6 +23,9 @@ class TerminalController {
         this.bob = terminal.bob
     }
 
+    public void setMapUpdatable(boolean p) {
+        this.mapUpdatable = p;
+    }
 
     def update() {
         if (input.left && !movementProcessed)
@@ -72,26 +73,24 @@ class TerminalController {
 
     public void checkIfComboIsCorrect() {
         //check passenger ticket
-        ArrayList<Integer> passengerCombo = getPassengerCombo()
-        for (int f = 0; f < bobCombo.size(); f++) {
-            if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
-                bobCombo = new ArrayList<Integer>()
-                System.out.println("Combo Was Wrong! We Where So WRONG")
-                break
+        ArrayList<Integer> passengerCombo = terminal.passenger.getPassengerCombo()
+        for (int f = 0; f < terminal.bob.combo.size(); f++) {
+            if (!terminal.bob.combo.get(f).equals(passengerCombo.get(f))) {
+                terminal.bob.combo = new ArrayList<Integer>();
+                System.out.println("Combo Was Wrong! We Were So WRONG");
+                break;
             } else {
 
                 System.out.println("Combo was Good!")
                 if (f == (passengerCombo.size() - 1)) {
-                    bobCombo = new ArrayList<Integer>();
-                    System.out.println("COMBO COMPLETE: Give Bob Points");
-                    this.bobTheAlmighty.updateScore();
-                    this.bobTheAlmighty.updateTicketsPunched();
+                    terminal.bob.combo = new ArrayList<Integer>()
+                    System.out.println("COMBO COMPLETE: Give Bob Points")
                 }
             }
         }
     }
 
-    public void bobIsPunchingATicket(int key) {
-        this.bobCombo.add(key)
-    }
+
 }
+
+

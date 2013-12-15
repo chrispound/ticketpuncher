@@ -1,5 +1,8 @@
 package com.gamejam.model
 
+import com.badlogic.gdx.graphics.Texture
+
+
 /**
  * Created by 
  * Matthew Fitzpatrick 
@@ -9,10 +12,12 @@ package com.gamejam.model
 class Terminal {
     Map<String, List<Line>> linesMap
     Bob bob
+    Passenger passenger
 
     Terminal() {
         linesMap = [open : [new Line(0), new Line(1), new Line(2), new Line(3), new Line(4)], closed : []]
         bob = new Bob(2)
+        passenger = new Passenger(200, new ArrayList<Integer>(), new Texture("BobFriend.png"))
     }
 
     def addPerson(Passenger passenger) {
