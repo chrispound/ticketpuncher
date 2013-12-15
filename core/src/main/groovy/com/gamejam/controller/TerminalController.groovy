@@ -109,14 +109,16 @@ class TerminalController {
                     this.terminal.bob.updateScore(terminal.currentPassenger.points);
                     this.terminal.bob.updateTicketsPunched();
                     popCurrentPassenger()
-                } else if (f == (passengerCombo.size() - 1)) {
-                    if (terminal.currentPassenger.evilBob) {
-                        terminal.currentPassenger.points = 30
+                } else if (terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
+                    if (f == (passengerCombo.size() - 1)) {
+                        if (terminal.currentPassenger.evilBob) {
+                            terminal.currentPassenger.points = 30
+                        }
+                        terminal.bob.combo = new ArrayList<Integer>();
+                        this.terminal.bob.updateScore(terminal.currentPassenger.points);
+                        this.terminal.bob.updateTicketsPunched();
+                        popCurrentPassenger()
                     }
-                    terminal.bob.combo = new ArrayList<Integer>();
-                    this.terminal.bob.updateScore(terminal.currentPassenger.points);
-                    this.terminal.bob.updateTicketsPunched();
-                    popCurrentPassenger()
                 }
 
             }
