@@ -106,14 +106,11 @@ class TerminalController {
             for (int f = 0; f < terminal.bob.combo.size(); f++) {
                 if (!terminal.bob.combo.get(f).equals(passengerCombo.get(f))) {
                     terminal.bob.combo = new ArrayList<Integer>()
-                    System.out.println("Combo Was Wrong! We Were So WRONG")
                     break
                 } else {
 
-                    System.out.println("Combo was Good!")
                     if (f == (passengerCombo.size() - 1)) {
                         terminal.bob.combo = new ArrayList<Integer>();
-                        System.out.println("COMBO COMPLETE: Give Bob Points");
                         this.terminal.bob.updateScore(terminal.currentPassenger.points);
                         this.terminal.bob.updateTicketsPunched();
                         popCurrentPassenger()
