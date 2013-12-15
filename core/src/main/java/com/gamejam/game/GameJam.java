@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gamejam.screens.SplashScreen;
 
+import java.util.HashMap;
+
 
 /**
  * Main Game Runner
@@ -82,6 +84,7 @@ public class GameJam extends Game implements ApplicationListener {
      * logger for each game frame.
      */
     private FPSLogger fpsLogger;
+    private HashMap<Integer, Long> highScore;
 
     public SplashScreen getSplashScreen() {
         return new SplashScreen(this);
@@ -102,7 +105,7 @@ public class GameJam extends Game implements ApplicationListener {
     @Override
     public void create() {
         Texture.setEnforcePotImages(false);
-        fpsLogger = new FPSLogger();
+        //get high scores!.
         Gdx.app.log(TAG, "Creating Game");
         batch = new SpriteBatch();
         setScreen(getSplashScreen());

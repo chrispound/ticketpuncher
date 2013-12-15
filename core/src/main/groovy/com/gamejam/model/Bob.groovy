@@ -12,7 +12,7 @@ class Bob {
     Vector2 position
     int currentLineNumber
     ArrayList<Integer> combo = new ArrayList<>()
-    int score
+    long score
     int ticketsPunched
 
     public Bob(int currentLineNumber) {
