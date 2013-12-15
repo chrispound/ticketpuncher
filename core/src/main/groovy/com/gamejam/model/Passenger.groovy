@@ -15,8 +15,8 @@ class Passenger {
     String textureName
     Vector2 position = new Vector2()
     int delta
-    int MIN = 0
-    int MAX = 6
+    static int MIN = 0
+    static int MAX = 3
     Random random = new Random()
     boolean evilBob
 
@@ -51,8 +51,10 @@ class Passenger {
         for (int f = 0; f < delta; f++) {
             combo.add(possibleKeys[random.nextInt(MAX - MIN) + MIN])
         }
+    }
 
-
+    static def increasePossibleButtons() {
+        if (MAX < 6) MAX++
     }
 
 
