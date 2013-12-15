@@ -5,7 +5,6 @@ import com.gamejam.model.Bob
 import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
-import com.gamejam.screens.GameOverScreen
 
 /**
  * Created by 
@@ -25,9 +24,11 @@ class TerminalController {
     long increaseSpawnRateTime = 0.25e+9
     long gameStartTime
     def everyXTicketsAddButton = 5
-    def everyXTicketsIncreaseSpawnRate = 15
-    def everyXTicketsIncreaseMaxCombo = 10
+    def everyXTicketsIncreaseSpawnRate = 30
+    def everyXTicketsIncreaseComboSize = 5
     Random random
+    def minCombos = 1
+    def maxCombos = 4
 
 
     TerminalController(Terminal terminal) {
@@ -39,10 +40,19 @@ class TerminalController {
 
     def update() {
         def gameOngoing = true
-        if (terminal.bob.ticketsPunched / everyXTicketsAddButton >= 1){
+
+        //Start Difficulty Logic
+        if (terminal.bob.ticketsPunched / everyXTicketsAddButton >= 1) {
             Passenger.increasePossibleButtons()
-            everyXTicketsAddButton += 5
+            everyXTicketsAddButton += everyXTicketsAddButton
         }
+
+        if (terminal.bob.ticketsPunched / everyXTicketsIncreaseComboSize >= 1) {
+            increaseComboWindow()
+            everyXTicketsIncreaseComboSize += everyXTicketsIncreaseComboSize
+        }
+
+        //End Difficulty Logic
 
         //Logic to Spawn Passengers
         if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
@@ -95,9 +105,15 @@ class TerminalController {
             evilBob = true
         }
         int passengerNumber = random.nextInt(6 - 1) + 1
-        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "passenger$passengerNumber", evilBob)
+        Passenger passenger =
+                new Passenger(random.nextInt(maxCombos - minCombos) + minCombos + 1, "passenger$passengerNumber", evilBob)
         lastPassengerTime = TimeUtils.nanoTime()
         terminal.addPerson(passenger)
+    }
+
+    def increaseComboWindow() {
+        if (minCombos < 5) minCombos++
+        if (maxCombos < 8) maxCombos++
     }
 
 //arrows handle user direction
@@ -145,7 +161,7 @@ class TerminalController {
                         terminal.bob.combo.get(f).equals(terminal.currentPassenger.combo.get(f))) {
                     if (f == (passengerCombo.size() - 1)) {
                         if (terminal.currentPassenger.evilBob) {
-                            terminal.currentPassenger.points = 30
+                            terminal.currentPassenger.points = -terminal.currentPassenger.points
                         }
                         terminal.bob.combo = new ArrayList<Integer>();
                         this.terminal.bob.updateScore(terminal.currentPassenger.points);

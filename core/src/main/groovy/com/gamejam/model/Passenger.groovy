@@ -15,6 +15,7 @@ class Passenger {
     String textureName
     Vector2 position = new Vector2()
     int delta
+    static def BASE_POINTS = 100
     static int MIN = 0
     static int MAX = 3
     Random random = new Random()
@@ -27,16 +28,15 @@ class Passenger {
     }
 
     Passenger(int delta, String textureName, boolean evilBob) {
-        this.points = delta * 2
         this.delta = delta
         this.textureName = textureName
+        generatePassengerComb()
+        this.points = (delta * MAX * 2) + BASE_POINTS
         if (evilBob) {
             this.evilBob = evilBob
             this.textureName = "badpassenger"
-            this.points = -5
-            this.delta = 8
+            this.points = -this.points
         }
-        generatePassengerComb()
     }
 
     def void generatePassengerComb() {
