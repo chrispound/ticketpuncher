@@ -1,17 +1,15 @@
 package com.gamejam.view
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.gamejam.controller.ComboAnimatorController
 import com.gamejam.model.Bob
-import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
-
-import static com.gamejam.model.PosHelper.*
 
 /**
  * Created by 
@@ -24,14 +22,19 @@ class TerminalRenderer {
     Terminal terminal
     SpriteBatch batch
     Texture bobTexture
-    Texture lineTexture
-    Texture deskTexture
     Texture backgroundTexture
     Bob bob
     ComboAnimatorController comboAnimatorController
     BitmapFont scoreTitle;
     BitmapFont actualScore;
     Map<String, Texture> passengerTextureMap = [:]
+    TextureRegion passenger1
+    TextureRegion passenger2
+    TextureRegion passenger3
+    TextureRegion passenger4
+    TextureRegion passenger5
+    TextureRegion badPassenger
+    TextureRegion deadPassenger
 
     TerminalRenderer(Terminal terminal) {
         this.terminal = terminal
@@ -47,7 +50,6 @@ class TerminalRenderer {
 
     def render() {
         batch.begin()
-        batch.draw(deskTexture, gameStageStartX.toFloat(), (gameStageStartY - bobWidthHeight).toFloat())
         batch.draw(backgroundTexture, 0, 0);
         drawBob()
         drawPassengers()
@@ -60,24 +62,44 @@ class TerminalRenderer {
 
     def loadTextures() {
         //Load all textures needed...
-        bobTexture = new Texture(Gdx.files.internal('bob.png'))
-        lineTexture = new Texture(Gdx.files.internal('templine.png'))
-        deskTexture = new Texture(Gdx.files.internal('desk.png'))
+        bobTexture = new Texture(Gdx.files.internal('bob/bob.png'))
         backgroundTexture = new Texture(Gdx.files.internal('gameJamBackground.png'))
+
+        TextureAtlas passengerAtlas = new TextureAtlas(Gdx.files.internal("packeroutput/passengers.pack"))
+        passenger1 = passengerAtlas.findRegion("passenger1")
+        passenger2 = passengerAtlas.findRegion("passenger2")
+        passenger3 = passengerAtlas.findRegion("passenger3")
+        passenger4 = passengerAtlas.findRegion("passenger4")
+        passenger5 = passengerAtlas.findRegion("passenger5")
+        badPassenger = passengerAtlas.findRegion("badpassenger")
+        deadPassenger = passengerAtlas.findRegion("deadpassenger")
     }
 
     def drawPassengers() {
         terminal.linesMap.values().each { line ->
             line.passengers.each { passenger ->
-                Texture texture = passengerTextureMap[passenger.textureName] ?: addToPassengerTextures(passenger)
-                batch.draw(texture, passenger.position.x, passenger.position.y)
+                batch.draw(findPassengerTexture(passenger.textureName), passenger.position.x, passenger.position.y)
             }
         }
     }
 
-    Texture addToPassengerTextures(Passenger passenger) {
-        passengerTextureMap[passenger.textureName] = new Texture(Gdx.files.internal(passenger.textureName))
-        passengerTextureMap[passenger.textureName]
+    TextureRegion findPassengerTexture(String textureName) {
+        switch (textureName) {
+            case 'passenger1':
+                return passenger1
+            case 'passenger2':
+                return passenger2
+            case 'passenger3':
+                return passenger3
+            case 'passenger4':
+                return passenger4
+            case 'passenger5':
+                return passenger5
+            case 'badpassenger':
+                return badPassenger
+            default:
+                return deadPassenger
+        }
     }
 
     def drawBob() {

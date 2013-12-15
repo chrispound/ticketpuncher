@@ -3,6 +3,7 @@ package com.gamejam.controller
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.gamejam.model.Terminal
 import com.gamejam.screens.GameScreen
@@ -51,7 +52,8 @@ class ComboAnimatorController {
     static Texture xTextureGood = new Texture(Gdx.files.internal(("buttons/btn_good_x.png")))
     static Texture spaceTextureGood = new Texture(Gdx.files.internal(("buttons/btn_good_space.png")))
 
-    static Texture killTexture = new Texture(Gdx.files.internal('skullCrossBones.png'))
+    static TextureRegion killTexture =
+            new TextureAtlas(Gdx.files.internal('packeroutput/passengers.pack')).findRegion('deadpassenger')
 
     static final POS_X = 5
     static final POS_Y_START = 645
@@ -110,15 +112,15 @@ class ComboAnimatorController {
 //update combo as user does stuff.
         int tempY = POS_Y_START
         for (int f = 0; f < terminal.currentPassenger.combo.size(); f++) {
-            Texture btnTexture = getComboImageTexture(terminal.currentPassenger.combo.get(f))
-            TextureRegion btnRegion = new TextureRegion(btnTexture, 88, 45)
+            def btnTexture = getComboImageTexture(terminal.currentPassenger.combo.get(f))
+            TextureRegion btnRegion = new TextureRegion(btnTexture, 0, 0, 88, 45)
             renderer.batch.draw(btnRegion, POS_X, tempY)
             //UPDATE POS
             tempY = tempY - POSY_Y_MULTIPLIER
         }
     }
 
-    static Texture getComboImageTexture(int key) {
+    static def getComboImageTexture(int key) {
         switch (key) {
 
             case Input.Keys.CONTROL_LEFT:

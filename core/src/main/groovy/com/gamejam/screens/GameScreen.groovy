@@ -54,7 +54,8 @@ class GameScreen implements Screen, InputProcessor {
         if (makeBob == 15) {
             evilBob = true
         }
-        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "BobFriend.png", evilBob)
+        int passengerNumber = random.nextInt(6 - 1) + 1
+        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "passenger$passengerNumber", evilBob)
         if (!terminalController.addPassenger(passenger))
         //check score
 
