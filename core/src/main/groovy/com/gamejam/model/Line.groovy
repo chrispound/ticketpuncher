@@ -24,4 +24,12 @@ class Line {
     boolean equals(Object obj) {
         this.lineNumber == ((Line)obj).lineNumber
     }
+
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "lineNumber=" + lineNumber +
+                '}';
+    }
 }

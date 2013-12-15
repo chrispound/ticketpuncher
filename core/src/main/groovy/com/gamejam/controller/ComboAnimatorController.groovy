@@ -78,7 +78,7 @@ class ComboAnimatorController {
         ArrayList<Integer> bobCombo = terminal.bob.combo
         ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
         Texture updatedTexture
-        if (passengerCombo.size() > 0) {
+        if (passengerCombo.size() > 0 && !terminal.getCurrentLine().closed) {
             for (int f = 0; f < bobCombo.size(); f++) {
                 if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                     terminal.bob.combo = new ArrayList<Integer>();
