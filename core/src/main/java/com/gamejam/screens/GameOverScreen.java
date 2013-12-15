@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.gamejam.game.GameJam;
 
 
@@ -16,9 +17,13 @@ import com.gamejam.game.GameJam;
  * at 8:10 PM
  */
 public class GameOverScreen extends ArcadeScreen implements InputProcessor {
+    long shownAtTime;
+    long lagTime = 2000000000;
+
     protected GameOverScreen(GameJam game) {
         super(game);
     }
+
     private Image gameOver;
 
     @Override
@@ -39,6 +44,7 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
         returnToMenu.setPosition(275, 100);
         returnToMenu.setFontScale(2f);
         stage.addActor(returnToMenu);
+        shownAtTime = TimeUtils.nanoTime();
 
         Gdx.input.setInputProcessor(this);
     }
@@ -67,14 +73,16 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.ENTER:
-            case Input.Keys.SPACE:
-                game.setScreen(new GameScreen(game));
-                break;
-            default:
-                game.setScreen(new MainMenu(game));
-                break;
+        if (TimeUtils.nanoTime() - shownAtTime > lagTime) {
+            switch (keycode) {
+                case Input.Keys.ENTER:
+                case Input.Keys.SPACE:
+                    game.setScreen(new GameScreen(game));
+                    break;
+                default:
+                    game.setScreen(new MainMenu(game));
+                    break;
+            }
         }
         return true;
     }
