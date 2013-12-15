@@ -25,7 +25,6 @@ class Line {
         this.lineNumber == ((Line)obj).lineNumber
     }
 
-
     @Override
     public String toString() {
         return "Line{" +

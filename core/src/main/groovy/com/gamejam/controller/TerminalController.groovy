@@ -102,7 +102,7 @@ class TerminalController {
     public void checkIfComboIsCorrect() {
         //check currentPassenger ticket
         ArrayList<Integer> passengerCombo = terminal.currentPassenger.combo
-        if (passengerCombo.size() > 0 && !terminal.currentLine.closed) {
+        if (passengerCombo.size() > 0) {
             for (int f = 0; f < terminal.bob.combo.size(); f++) {
                 if (!terminal.bob.combo.get(f).equals(passengerCombo.get(f))) {
                     terminal.bob.combo = new ArrayList<Integer>()
