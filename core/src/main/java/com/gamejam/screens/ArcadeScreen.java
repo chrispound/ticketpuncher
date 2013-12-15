@@ -43,7 +43,7 @@ public abstract class ArcadeScreen implements Screen {
 
     public Skin getSkin() {
         if (skin == null) {
-            FileHandle skinFile = Gdx.files.internal("uiskin.json");
+            FileHandle skinFile = Gdx.files.internal("ui/uiskin.json");
             skin = new Skin(skinFile);
         }
 
