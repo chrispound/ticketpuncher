@@ -3,6 +3,8 @@ package com.gamejam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.gamejam.game.GameJam;
 
@@ -17,22 +19,27 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
     protected GameOverScreen(GameJam game) {
         super(game);
     }
+    private Image gameOver;
 
     @Override
     public void show() {
         super.show();
         //do cool magic scene2d here
+        gameOver = new Image(new Texture("gameOver.png"));
+        gameOver.setPosition(275, 200);
+        stage.addActor(gameOver);
 
         //display final Score
-        Label gameOverMessage = new Label("Game Over! \n Press Enter to Restart", getSkin());
-        gameOverMessage.setPosition(250, 500);
+        Label gameOverMessage = new Label("Press Enter to Restart", getSkin());
+        gameOverMessage.setPosition(350, 150);
         gameOverMessage.setFontScale(2f);
         stage.addActor(gameOverMessage);
 
-        Label returnToMenu = new Label(" Press Any Other Key to go to Main Menu ", getSkin());
-        returnToMenu.setPosition(170, 450);
+        Label returnToMenu = new Label("Press any key to go to Main Menu ", getSkin());
+        returnToMenu.setPosition(275, 100);
         returnToMenu.setFontScale(2f);
         stage.addActor(returnToMenu);
+
         Gdx.input.setInputProcessor(this);
     }
 
