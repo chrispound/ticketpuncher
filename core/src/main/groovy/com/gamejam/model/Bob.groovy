@@ -10,26 +10,25 @@ import com.badlogic.gdx.math.Vector2
  */
 class Bob {
     Vector2 position
-    int currentLine
+    int currentLineNumber
     ArrayList<Integer> combo = new ArrayList<>()
     int score
     int ticketsPunched
 
-    public Bob(int currentLine) {
+    public Bob(int currentLineNumber) {
         this.position = new Vector2()
-        this.setCurrentLine(currentLine)
+        this.setCurrentLineNumber(currentLineNumber)
         this.score = 0
         this.ticketsPunched = 0
     }
 
-    public void setCurrentLine(int newLine) {
-        System.out.println("Setting New BobLine: " + newLine);
-        this.currentLine = newLine;
+    public void setCurrentLineNumber(int newLineNumber) {
+        this.currentLineNumber = newLineNumber;
         updatePosition();
     }
 
     private void updatePosition() {
-        switch (currentLine) {
+        switch (currentLineNumber) {
             case 0:
                 position.set(LinePosHelper.LINE_0.getLinePosition(0).x, (LinePosHelper.LINE_0.getLinePosition(0).y + 84).toFloat());
                 break;

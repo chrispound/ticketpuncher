@@ -28,14 +28,14 @@ class TerminalController {
 
         //Bob Stuff...
         if (input.left && !movementProcessed)
-            if (bob.currentLine != END_OF_LEFT) {
-                bob.currentLine -= 1
+            if (bob.currentLineNumber != END_OF_LEFT) {
+                bob.currentLineNumber -= 1
                 movementProcessed = true
             }
 
         if (input.right && !movementProcessed)
-            if (bob.currentLine != END_OF_RIGHT) {
-                bob.currentLine += 1
+            if (bob.currentLineNumber != END_OF_RIGHT) {
+                bob.currentLineNumber += 1
                 movementProcessed = true
             }
 
@@ -122,8 +122,8 @@ class TerminalController {
     }
 
     def popCurrentPassenger() {
-        def currentLine = terminal.bob.currentLine
-        terminal.linesMap[currentLine.toString()].passengers.remove(0)
+        def currentLineNumber = terminal.bob.currentLineNumber
+        terminal.linesMap[currentLineNumber.toString()].passengers.remove(0)
     }
 
 

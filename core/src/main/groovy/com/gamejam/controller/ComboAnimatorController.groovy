@@ -82,14 +82,12 @@ class ComboAnimatorController {
         for (int f = 0; f < bobCombo.size(); f++) {
             if (!bobCombo.get(f).equals(passengerCombo.get(f))) {
                 terminal.bob.combo = new ArrayList<Integer>();
-                System.out.println("Combo Was Wrong! We Were So WRONG");
 //                updatedTexture = getErrorComboImageTexture(terminal.currentPassenger.combo.get(mostRecentComboPosition))
 //                TextureRegion btnRegion = new TextureRegion(updatedTexture, 88, 45)
 //                renderer.batch.draw(btnRegion, POS_X, (POS_Y_START - POSY_Y_MULTIPLIER * mostRecentComboPosition))
                 //kick off btn update
                 break;
             } else {
-                System.out.println("Combo was Good!");
                 for (int i = 0; i < bobCombo.size(); i++) {
                     updatedTexture = getGoodComboImageTexture(terminal.currentPassenger.combo.get(i))
                     TextureRegion btnRegion = new TextureRegion(updatedTexture, 88, 45)
@@ -98,7 +96,6 @@ class ComboAnimatorController {
                 if (f == (passengerCombo.size() - 1)) {
                     bobCombo = new ArrayList<Integer>();
                     //kick off btn update
-                    System.out.println("COMBO COMPLETE: Give Bob Points");
                 }
             }
         }
