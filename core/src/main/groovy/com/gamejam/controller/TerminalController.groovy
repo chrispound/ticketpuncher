@@ -1,9 +1,11 @@
 package com.gamejam.controller
 
+import com.badlogic.gdx.utils.TimeUtils
 import com.gamejam.model.Bob
 import com.gamejam.model.LinePosHelper
 import com.gamejam.model.Passenger
 import com.gamejam.model.Terminal
+import com.gamejam.screens.GameOverScreen
 
 /**
  * Created by 
@@ -18,13 +20,28 @@ class TerminalController {
     Bob bob
     Terminal terminal
     def movementProcessed = true
+    long lastPassengerTime
+    long timeBetweenPassengers = 2.0e+9
+    long increaseSpawnRateTime = 0.25e+9
+    long gameStartTime
+    def everyXTicketsAddButton = 5
+    def everyXTicketsIncreaseSpawnRate = 15
+    def everyXTicketsIncreaseMaxCombo = 10
+    Random random
+
 
     TerminalController(Terminal terminal) {
         this.terminal = terminal
         this.bob = terminal.bob
+        random = new Random()
+        gameStartTime = TimeUtils.nanoTime()
     }
 
     def update() {
+        def gameOngoing = true
+        //Logic to Spawn Passengers
+        if (TimeUtils.nanoTime() - lastPassengerTime > timeBetweenPassengers)
+            gameOngoing = spawnPassenger()
 
         //Bob Stuff...
         if (input.left && !movementProcessed)
@@ -63,9 +80,18 @@ class TerminalController {
         }
 
         terminal.updateCurrentPassenger()
+        gameOngoing
     }
 
-    def addPassenger(Passenger passenger) {
+    def spawnPassenger() {
+        int makeBob = random.nextInt(20 - 5) + 5
+        boolean evilBob = false
+        if (makeBob == 15) {
+            evilBob = true
+        }
+        int passengerNumber = random.nextInt(6 - 1) + 1
+        Passenger passenger = new Passenger(random.nextInt(9 - 1) + 1, "passenger$passengerNumber", evilBob)
+        lastPassengerTime = TimeUtils.nanoTime()
         terminal.addPerson(passenger)
     }
 
