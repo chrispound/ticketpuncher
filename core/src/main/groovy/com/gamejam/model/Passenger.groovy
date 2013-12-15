@@ -32,12 +32,11 @@ class Passenger {
         this.textureName = textureName
         if (evilBob) {
             this.evilBob = evilBob
-            this.textureName = "BadBob.png"
+            this.textureName = "badpassenger"
             this.points = -5
             this.delta = 8
         }
         generatePassengerComb()
-
     }
 
     def void generatePassengerComb() {
