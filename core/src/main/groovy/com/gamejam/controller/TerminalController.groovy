@@ -118,6 +118,7 @@ class TerminalController {
                     System.out.println("COMBO COMPLETE: Give Bob Points");
                     //this.terminal.bob.updateScore(terminal.linesMap);
                     this.terminal.bob.updateTicketsPunched();
+                    terminal.passenger = new Passenger(terminal.random.nextInt(8 - 3) + 3, "bob.png")
                 }
             }
         }

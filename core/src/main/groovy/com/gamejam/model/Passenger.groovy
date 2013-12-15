@@ -1,7 +1,6 @@
 package com.gamejam.model
 
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 
 /**
@@ -36,8 +35,10 @@ class Passenger {
         if(combo == null){
             combo = new ArrayList<Integer>();
         }
-        def possibleKeys = [Input.Keys.SHIFT_LEFT, Input.Keys.CONTROL_LEFT, Input.Keys.Z,
-        Input.Keys.X, Input.Keys.ENTER, Input.Keys.SPACE]
+//        def possibleKeys = [Input.Keys.SHIFT_LEFT, Input.Keys.CONTROL_LEFT, Input.Keys.Z,
+//        Input.Keys.X, Input.Keys.ENTER, Input.Keys.SPACE]
+        def possibleKeys = [Input.Keys.Q, Input.Keys.W, Input.Keys.E,
+                Input.Keys.A, Input.Keys.S, Input.Keys.D]
         println "random number is: " + delta
         Random random = new Random()
         //generate size. generate

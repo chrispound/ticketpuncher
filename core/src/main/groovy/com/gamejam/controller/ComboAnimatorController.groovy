@@ -26,7 +26,7 @@ class ComboAnimatorController {
      */
     static Texture lCtrlTexture = new Texture(Gdx.files.internal("buttons/btn_press_lctrl.png"))
     static Texture lShiftTexture = new Texture(Gdx.files.internal("buttons/btn_press_lshift.png"))
-    static Texture xTeture = new Texture(Gdx.files.internal("buttons/btn_press_x.png"))
+    static Texture xTexture = new Texture(Gdx.files.internal("buttons/btn_press_x.png"))
     static Texture zTexture = new Texture(Gdx.files.internal("buttons/btn_press_z.png"))
     static Texture enterTexture = new Texture(Gdx.files.internal("buttons/btn_press_enter.png"))
     static Texture spaceTexture = new Texture(Gdx.files.internal("buttons/btn_press_space.png"))
@@ -120,16 +120,22 @@ class ComboAnimatorController {
         switch (key) {
 
             case Input.Keys.CONTROL_LEFT:
+            case Input.Keys.Q:
                 return lCtrlTexture
             case Input.Keys.SHIFT_LEFT:
+            case Input.Keys.A:
                 return lShiftTexture
             case Input.Keys.ENTER:
+            case Input.Keys.W:
                 return enterTexture
             case Input.Keys.Z:
+            case Input.Keys.S:
                 return zTexture
             case Input.Keys.X:
-                return xTeture
+            case Input.Keys.D:
+                return xTexture
             case Input.Keys.SPACE:
+            case Input.Keys.E:
                 return spaceTexture
             default:
                 return null
@@ -140,16 +146,22 @@ class ComboAnimatorController {
         switch (key) {
 
             case Input.Keys.CONTROL_LEFT:
+            case Input.Keys.Q:
                 return lCtrlTextureGood
             case Input.Keys.SHIFT_LEFT:
+            case Input.Keys.A:
                 return lShiftTextureGood
             case Input.Keys.ENTER:
+            case Input.Keys.W:
                 return enterTextureGood
             case Input.Keys.Z:
+            case Input.Keys.S:
                 return zTextureGood
             case Input.Keys.X:
+            case Input.Keys.D:
                 return xTextureGood
             case Input.Keys.SPACE:
+            case Input.Keys.E:
                 return spaceTextureGood
             default:
                 return null
