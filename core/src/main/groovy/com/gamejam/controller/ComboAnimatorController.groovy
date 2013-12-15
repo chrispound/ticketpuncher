@@ -76,7 +76,7 @@ class ComboAnimatorController {
      */
     def updateCombo() {
         ArrayList<Integer> bobCombo = terminal.bob.combo
-        ArrayList<Integer> passengerCombo = terminal.passenger.getPassengerCombo();
+        ArrayList<Integer> passengerCombo = terminal.passenger.combo
         int mostRecentComboPosition = terminal.bob.combo.size() - 1
         Texture updatedTexture
         for (int f = 0; f < bobCombo.size(); f++) {

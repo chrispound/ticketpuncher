@@ -102,7 +102,7 @@ class TerminalController {
         for (int f = 0; f < terminal.bob.combo.size(); f++) {
             if (!terminal.bob.combo.get(f).equals(passengerCombo.get(f))) {
                 terminal.bob.combo = new ArrayList<Integer>()
-                System.out.println("Combo Was Wrong! We Where So WRONG")
+                System.out.println("Combo Was Wrong! We Were So WRONG")
                 break
             } else {
 
