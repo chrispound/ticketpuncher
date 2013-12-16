@@ -62,8 +62,6 @@ public class Profile implements Serializable {
 
     // Serializable implementation
 
-    @SuppressWarnings("unchecked")
-    @Override
     public void read(
             Json json,
             OrderedMap<String, Object> jsonData) {
@@ -78,7 +76,6 @@ public class Profile implements Serializable {
 
     }
 
-    @Override
     public void write(
             Json json) {
 //        json.writeValue("credits", credits);
