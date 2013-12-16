@@ -48,7 +48,7 @@ public class SplashScreen extends ArcadeScreen {
         // load the splash image and create the texture region
         splashImageActor = new Image(new Texture("gjlogoTitle.png"));
 
-        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("DrP_Tetris.mp3")));
+//        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("DrP_Tetris.mp3")));
         game.loopMusic();
         game.playMusic();
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Json
 import com.gamejam.model.Profile
 
 /**
- * Created by Chris on 12/15/13.
+ * Created by Chris Pound on 12/15/13.
  */
 class ProfileManager {
 

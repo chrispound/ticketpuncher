@@ -31,7 +31,7 @@ public class GameOverScreen extends ArcadeScreen implements InputProcessor {
         super.show();
 
         game.stopMusic();
-        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("AustinPowers.mp3")));
+//        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("AustinPowers.mp3")));
         game.loopMusic();
         game.playMusic();
 

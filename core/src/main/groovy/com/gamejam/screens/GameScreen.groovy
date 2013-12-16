@@ -39,7 +39,7 @@ class GameScreen implements Screen, InputProcessor {
     void show() {
         Gdx.input.setInputProcessor(this)
         game.stopMusic()
-        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3")))
+//        game.setMusic(Gdx.audio.newMusic(Gdx.files.internal("Maths_Deadmau5.mp3")))
         game.loopMusic()
         game.playMusic()
         game.setVolume(0.3)

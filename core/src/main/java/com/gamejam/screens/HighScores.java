@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.gamejam.game.GameJam;
 
 /**
- * Created by Chris on 12/15/13.
+ * Created by Chris Pound on 12/15/13.
  */
 public class HighScores extends ArcadeScreen implements InputProcessor {
 

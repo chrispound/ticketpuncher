@@ -10,7 +10,7 @@ import com.gamejam.screens.GameScreen
 import com.gamejam.view.TerminalRenderer
 
 /**
- * Created by Chris on 12/14/13.
+ * Created by Chris Pound on 12/14/13.
  *
  *
  */

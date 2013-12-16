@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Json
 import com.badlogic.gdx.utils.OrderedMap
 
 /**
- * Created by Chris on 12/15/13.
+ * Created by Chris Pound on 12/15/13.
  */
 
 public class Profile implements Serializable {
